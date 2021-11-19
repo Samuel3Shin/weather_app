@@ -13,7 +13,7 @@
         android:gravity="center">
 
         <bitmap
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/launch_screen"
             android:gravity="center"/>
 
     </item>

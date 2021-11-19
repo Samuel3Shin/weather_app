@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
                 lat = response.getString("loc").split(",")[0]
                 lng = response.getString("loc").split(",")[1]
 
+                addressTextView.text = response.getString("city") + ", " + response.getString("region")
+
                 var weatherUrl = "http://10.26.30.167:8080/weather?lat=${lat}&lng=${lng}"
 
                 //        var weatherUrl = "http://127.0.0.1:8080/weather"
