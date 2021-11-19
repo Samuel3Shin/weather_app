@@ -4,25 +4,14 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
 
     <!-- The background color, preferably the same as your normal theme -->
-    <item android:drawable="@color/colorPrimary"/>
+    <item android:drawable="@android:color/white"/>
 
     <!-- Your product logo - 144dp color version of your app icon -->
-    <item
-        android:height="144dp"
-        android:width="144dp"
-        android:gravity="center">
+    <item>
 
         <bitmap
-            android:src="@drawable/launch_screen"
+            android:src="@drawable/weather_partly_snowy_rainy"
             android:gravity="center"/>
-
-    </item>
-    <item
-        android:height="40dp"
-        android:width="200dp"
-        android:gravity="bottom|center_horizontal"
-        android:bottom="100dp">
-        <bitmap android:src="@drawable/poweredby_darkbackground"></bitmap>
     </item>
 
 </layer-list>

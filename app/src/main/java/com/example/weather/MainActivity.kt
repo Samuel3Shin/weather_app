@@ -1,9 +1,13 @@
 package com.example.weather
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -11,7 +15,7 @@ import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import org.json.JSONTokener
-import kotlin.reflect.typeOf
+
 
 class MainActivity : AppCompatActivity() {
     val posts: MutableList<DailyTempPost> = mutableListOf()
@@ -19,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     var lng = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -69,6 +74,20 @@ class MainActivity : AppCompatActivity() {
 
         queue.add(ipInfoRequest)
 
+        // Card 1 click -> detail
+        card1.setOnClickListener {
+
+            Log.d("TAG", "card1 click!")
+            val intent = Intent(this, DetailsActivity::class.java)
+            startActivity(intent)
+
+//            val intent = Intent(applicationContext, DetailsActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+//            startActivity(intent)
+//            finish()
+
+        }
+
 
         val layoutManager = LinearLayoutManager(applicationContext)
 
@@ -98,5 +117,45 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = null
         recyclerView.adapter = null
         super.onDestroy()
+    }
+
+    // create an action bar button
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
+        // If you don't have res/menu, just create a directory named "menu" inside res
+        menuInflater.inflate(R.menu.mymenu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    // handle button activities
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id: Int = item.getItemId()
+        if (id == R.id.mybutton) {
+            Log.d("TAG", "search button clicked")
+
+//            val intent = Intent(this, SearchableActivity::class.java)
+//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+//            startActivity(intent)
+//            finish()
+            // do something here
+
+            // Create the text message with a string.
+            val sendIntent = Intent().apply {
+                action = Intent.ACTION_SEARCH
+//                putExtra(Intent.EXTRA_TEXT, textMessage)
+//                type = "text/plain"
+            }
+
+            // Try to invoke the intent.
+            try {
+                Log.d("TAG", "start activity1")
+                startActivity(sendIntent)
+                Log.d("TAG", "search button clicked2")
+            } catch (e: ActivityNotFoundException) {
+                Log.d("TAG", "Error occured!")
+                // Define what your app should do if no activity can handle the intent.
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
