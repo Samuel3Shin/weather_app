@@ -10,6 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_today_tab.*
+import org.json.JSONObject
+import org.json.JSONTokener
 
 
 class DetailsActivity : AppCompatActivity() {
@@ -78,7 +82,6 @@ class DetailsActivity : AppCompatActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
-
 
     }
 
