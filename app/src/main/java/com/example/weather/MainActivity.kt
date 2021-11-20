@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     val posts: MutableList<DailyTempPost> = mutableListOf()
     var lat = ""
     var lng = ""
+    var json_data = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         val ipInfoRequest = JsonObjectRequest(
             Request.Method.GET, ipUrl, null,
-            Response.Listener { response ->
+            { response ->
 
                 Log.d("TAG", response.getString("loc"))
                 lat = response.getString("loc").split(",")[0]
@@ -47,18 +48,25 @@ class MainActivity : AppCompatActivity() {
                 //        var weatherUrl = "http://127.0.0.1:8080/weather"
                 val weatherRequest = JsonObjectRequest(
                     Request.Method.GET, weatherUrl, null,
-                    Response.Listener { response ->
+                    { response ->
                         val jsonObject = JSONTokener(response.toString()).nextValue() as JSONObject
+                        json_data = response.toString()
 
-                        temperatureTextView.text = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").getString("temperature").toString()
-                        humidityTextView.text = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").getString("humidity").toString()
-                        windTextView.text = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").getString("windSpeed").toString()
-                        visibilityTextView.text = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").getString("visibility").toString()
-                        pressureTextView.text = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").getString("pressureSeaLevel").toString()
+                        var current_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values")
 
-                        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").toString())
+                        mainWeatherIcon.setImageResource(Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.first)
+                        mainWeatherTextView.text = Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.second
+
+
+                        temperatureTextView.text = current_data.getString("temperature").toString()
+                        humidityTextView.text = current_data.getString("humidity").toString()
+                        windTextView.text = current_data.getString("windSpeed").toString()
+                        visibilityTextView.text = current_data.getString("visibility").toString()
+                        pressureTextView.text = current_data.getString("pressureSeaLevel").toString()
+
+//                        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").toString())
                     },
-                    Response.ErrorListener { error ->
+                    { error ->
                         // TODO: Handle error
                         Log.d("TAG", error.toString())
                     }
@@ -66,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 queue.add(weatherRequest)
 
             },
-            Response.ErrorListener { error ->
+            { error ->
                 // TODO: Handle error
                 Log.d("TAG", error.toString())
             }
@@ -79,12 +87,9 @@ class MainActivity : AppCompatActivity() {
 
             Log.d("TAG", "card1 click!")
             val intent = Intent(this, DetailsActivity::class.java)
-            startActivity(intent)
+            intent.putExtra("json_data", json_data)
 
-//            val intent = Intent(applicationContext, DetailsActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//            startActivity(intent)
-//            finish()
+            startActivity(intent)
 
         }
 
@@ -102,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
         for(i in 0 until myWeatherList.size) {
             var post = DailyTempPost(myWeatherList[i].split(",")[0], "", myWeatherList[i].split(",")[1], myWeatherList[i].split(",")[2]);
-            Log.d("TAG", post.date + " " + post.highTemp)
+//            Log.d("TAG", post.date + " " + post.highTemp)
             posts.add(post)
             Log.d("TAG", "post added")
             recyclerView.adapter?.notifyItemInserted(posts.size - 1)

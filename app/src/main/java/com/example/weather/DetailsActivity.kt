@@ -1,24 +1,23 @@
 package com.example.weather
 
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
 
-class
-DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity() {
     lateinit var tabLayout: TabLayout
     lateinit var viewPager: ViewPager
+    private lateinit var json_data: String
 
-    val tabIcons = arrayOf<Int>(
+    private val tabIcons = arrayOf<Int>(
         R.drawable.calendar_today,
         R.drawable.trending_up,
         R.drawable.thermometer_low
@@ -28,9 +27,18 @@ DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
+        // get json data
+        val extras = intent.extras
+        if (extras != null) {
+            json_data = extras.getString("json_data").toString()
+            Log.d("TAG", "detailActivity josn get?")
+            Log.d("TAG", json_data)
+            //The key argument here must match that used in the other activity
+        }
+
         // calling the action bar
         var actionBar = supportActionBar
-        actionBar?.title = "Los Angeles, California"
+        actionBar?.title = "Seattle, Washington"
 
         // showing the back button in action bar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -52,7 +60,6 @@ DetailsActivity : AppCompatActivity() {
             tabLayout.tabCount)
 
         // tab set icon
-
         for (i in tabIcons.indices) {
             val mIcon = getDrawable(tabIcons[i]);
             mIcon!!.setColorFilter(
@@ -61,19 +68,6 @@ DetailsActivity : AppCompatActivity() {
             )
             tabLayout.getTabAt(i)?.icon = mIcon;
         }
-
-//        val mIcon = getDrawable(tabIcons[0])
-//
-////        mIcon.setColorFilter("#FFFFFF", )
-//        mIcon!!.setColorFilter(
-//            ResourcesCompat.getColor(getResources(), R.color.white, null),
-//            PorterDuff.Mode.MULTIPLY
-//        )
-//
-//        tabLayout.getTabAt(0)?.setIcon(mIcon);
-//        tabLayout.getTabAt(1)?.setIcon(tabIcons[1]);
-//        tabLayout.getTabAt(2)?.setIcon(tabIcons[2]);
-
 
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
@@ -84,6 +78,8 @@ DetailsActivity : AppCompatActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab) {}
             override fun onTabReselected(tab: TabLayout.Tab) {}
         })
+
+
     }
 
     // back button clicked
@@ -109,5 +105,9 @@ DetailsActivity : AppCompatActivity() {
         // If you don't have res/menu, just create a directory named "menu" inside res
         menuInflater.inflate(R.menu.twitter_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    fun getJsonData(): String? {
+        return json_data
     }
 }
