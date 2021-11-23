@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
                 addressTextView.text = response.getString("city") + ", " + response.getString("region")
 
-                var weatherUrl = "http://10.26.30.167:8080/weather?lat=${lat}&lng=${lng}"
+                var weatherUrl = "http://10.26.27.78:8080/weather?lat=${lat}&lng=${lng}"
 
                 //        var weatherUrl = "http://127.0.0.1:8080/weather"
                 val weatherRequest = JsonObjectRequest(

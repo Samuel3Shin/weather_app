@@ -19,12 +19,10 @@ class TodayTab : Fragment() {
         return inflater.inflate(R.layout.fragment_today_tab, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         val activity: DetailsActivity? = activity as DetailsActivity?
         val json_data: String = activity!!.getJsonData()!!
-
 
         // populating today weather data
         val jsonObject = JSONTokener(json_data).nextValue() as JSONObject
@@ -33,7 +31,7 @@ class TodayTab : Fragment() {
         wind_speed_textview.text =  current_data.getString("windSpeed").toString() + " mph"
         pressure_textview.text =  current_data.getString("pressureSeaLevel").toString() + " inHg"
         precipitation_textview.text =  current_data.getString("precipitationProbability").toString() + " %"
-        temperature_textview.text =  current_data.getString("temperature").toString() + " U+02109"
+        temperature_textview.text =  current_data.getString("temperature").toString() + " °F"
 
         humidity_textview.text =  current_data.getString("humidity").toString() + "%"
         visibility_textview.text =  current_data.getString("visibility").toString() + " mi"
@@ -44,4 +42,5 @@ class TodayTab : Fragment() {
         today_weather_textview.text = Utils.weatherCodeMap[current_data.getString("weatherCode").toString()]!!.second
 
     }
+
 }
