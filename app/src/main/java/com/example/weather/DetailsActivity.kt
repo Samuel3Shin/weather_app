@@ -13,12 +13,16 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_today_tab.*
+import org.json.JSONObject
+import org.json.JSONTokener
 
 
 class DetailsActivity : AppCompatActivity() {
     lateinit var tabLayout: TabLayout
     lateinit var viewPager: ViewPager
     private lateinit var json_data: String
+    private lateinit var city: String
+    private lateinit var state: String
 
     private val tabIcons = arrayOf<Int>(
         R.drawable.calendar_today,
@@ -34,8 +38,11 @@ class DetailsActivity : AppCompatActivity() {
         val extras = intent.extras
         if (extras != null) {
             json_data = extras.getString("json_data").toString()
-            Log.d("TAG", "detailActivity josn get?")
-            Log.d("TAG", json_data)
+//            Log.d("TAG", "detailActivity josn get?")
+//            Log.d("TAG", json_data)
+
+            city = extras.getString("city").toString()
+            state = extras.getString("state").toString()
             //The key argument here must match that used in the other activity
         }
 
@@ -108,7 +115,12 @@ class DetailsActivity : AppCompatActivity() {
 
 //                var strWindowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
 //                var url = "https://twitter.com/intent/tweet?text=The temperature in ${this.city}, ${this.state} on ${this.date} is ${this.weatherDetails[3]["value"]}. The weather conditions are ${this.weatherDetails[0]["value"]} %23CSCI571WeatherForecast"
-                var url = "https://twitter.com/intent/tweet?text=The temperature"
+
+                val jsonObject = JSONTokener(json_data).nextValue() as JSONObject
+                val current_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values")
+                val warmth = current_data.getString("temperature").toString() + "°F"
+
+                var url = "https://twitter.com/intent/tweet?text=Check out " + city + ", " + state + ", USA's weather! It is " + warmth + "!        " + "\n%23CSCI571WeatherSearch"
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(browserIntent)
             }

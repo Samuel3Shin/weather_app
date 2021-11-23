@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     var lat = ""
     var lng = ""
     var json_data = ""
+    var city = ""
+    var state = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -42,6 +44,8 @@ class MainActivity : AppCompatActivity() {
                 lng = response.getString("loc").split(",")[1]
 
                 addressTextView.text = response.getString("city") + ", " + response.getString("region")
+                city = response.getString("city")
+                state = response.getString("region")
 
                 var weatherUrl = "http://10.26.27.78:8080/weather?lat=${lat}&lng=${lng}"
 
@@ -88,9 +92,10 @@ class MainActivity : AppCompatActivity() {
             Log.d("TAG", "card1 click!")
             val intent = Intent(this, DetailsActivity::class.java)
             intent.putExtra("json_data", json_data)
+            intent.putExtra("city", city)
+            intent.putExtra("state", state)
 
             startActivity(intent)
-
         }
 
 
