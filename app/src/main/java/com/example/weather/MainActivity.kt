@@ -98,34 +98,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-        val layoutManager = LinearLayoutManager(applicationContext)
-
-        recyclerView.layoutManager = layoutManager
-        recyclerView.layoutManager?.scrollToPosition(0)
-
-        recyclerView.adapter = DailyTempPostAdapter(this@MainActivity, posts)
-
-        var myWeatherList: MutableList<String> = mutableListOf()
-
-        myWeatherList.add("2021-10-27,46,60")
-
-        for(i in 0 until myWeatherList.size) {
-            var post = DailyTempPost(myWeatherList[i].split(",")[0], "", myWeatherList[i].split(",")[1], myWeatherList[i].split(",")[2]);
-//            Log.d("TAG", post.date + " " + post.highTemp)
-            posts.add(post)
-            Log.d("TAG", "post added")
-            recyclerView.adapter?.notifyItemInserted(posts.size - 1)
-
-//            Log.d("TAG", "recyclerView notified")
-//            Log.d("TAG", posts.size.toString())
-        }
     }
 
     // Called before the activity is destroyed
     public override fun onDestroy() {
-        recyclerView.layoutManager = null
-        recyclerView.adapter = null
         super.onDestroy()
     }
 

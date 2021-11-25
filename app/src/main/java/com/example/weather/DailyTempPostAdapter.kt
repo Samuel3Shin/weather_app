@@ -17,7 +17,7 @@ class DailyTempPostAdapter(private val context: Context, private val posts: Muta
     }
 
     override fun getItemCount(): Int {
-        Log.d("TAG", "Adapter post size: " + posts.size.toString())
+//        Log.d("TAG", "Adapter post size: " + posts.size.toString())
         return posts.size
     }
 

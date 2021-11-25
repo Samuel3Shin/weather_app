@@ -119,9 +119,4 @@ class WeeklyTab : Fragment() {
         chartView.options = options
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
-    }
 }
