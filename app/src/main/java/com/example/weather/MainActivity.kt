@@ -15,6 +15,7 @@ import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import org.json.JSONTokener
+import kotlin.math.roundToInt
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,15 +59,61 @@ class MainActivity : AppCompatActivity() {
 
                         var current_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values")
 
+//                        Log.d("TAG", Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.first.toString())
                         mainWeatherIcon.setImageResource(Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.first)
                         mainWeatherTextView.text = Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.second
-
 
                         temperatureTextView.text = current_data.getString("temperature").toString()
                         humidityTextView.text = current_data.getString("humidity").toString()
                         windTextView.text = current_data.getString("windSpeed").toString()
                         visibilityTextView.text = current_data.getString("visibility").toString()
                         pressureTextView.text = current_data.getString("pressureSeaLevel").toString()
+
+                        var weekly_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(2).getJSONArray("intervals")
+
+                        var dateStr = weekly_data.getJSONObject(0).getString("startTime")
+                        dateTextView1.text = dateStr.substring(0, dateStr.length-15)
+                        iconImg1.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(0).getJSONObject("values").getString("weatherCode").toString())!!.first)
+                        lowTempTextView1.text = weekly_data.getJSONObject(0).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
+                        highTempTextView1.text = weekly_data.getJSONObject(0).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
+
+                        dateStr = weekly_data.getJSONObject(1).getString("startTime")
+                        dateTextView2.text = dateStr.substring(0, dateStr.length-15)
+                        iconImg2.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(1).getJSONObject("values").getString("weatherCode").toString())!!.first)
+                        lowTempTextView2.text = weekly_data.getJSONObject(1).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
+                        highTempTextView2.text = weekly_data.getJSONObject(1).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
+
+                        dateStr = weekly_data.getJSONObject(2).getString("startTime")
+                        dateTextView3.text = dateStr.substring(0, dateStr.length-15)
+                        iconImg3.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(2).getJSONObject("values").getString("weatherCode").toString())!!.first)
+                        lowTempTextView3.text = weekly_data.getJSONObject(2).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
+                        highTempTextView3.text = weekly_data.getJSONObject(2).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
+
+                        dateStr = weekly_data.getJSONObject(3).getString("startTime")
+                        dateTextView4.text = dateStr.substring(0, dateStr.length-15)
+                        iconImg4.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(3).getJSONObject("values").getString("weatherCode").toString())!!.first)
+                        lowTempTextView4.text = weekly_data.getJSONObject(3).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
+                        highTempTextView4.text = weekly_data.getJSONObject(3).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
+
+                        dateStr = weekly_data.getJSONObject(4).getString("startTime")
+                        dateTextView5.text = dateStr.substring(0, dateStr.length-15)
+                        iconImg5.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(4).getJSONObject("values").getString("weatherCode").toString())!!.first)
+                        lowTempTextView5.text = weekly_data.getJSONObject(4).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
+                        highTempTextView5.text = weekly_data.getJSONObject(4).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
+
+                        dateStr = weekly_data.getJSONObject(5).getString("startTime")
+                        dateTextView6.text = dateStr.substring(0, dateStr.length-15)
+                        iconImg6.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(5).getJSONObject("values").getString("weatherCode").toString())!!.first)
+                        lowTempTextView6.text = weekly_data.getJSONObject(5).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
+                        highTempTextView6.text = weekly_data.getJSONObject(5).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
+
+
+                        dateStr = weekly_data.getJSONObject(6).getString("startTime")
+                        dateTextView7.text = dateStr.substring(0, dateStr.length-15)
+                        iconImg7.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(6).getJSONObject("values").getString("weatherCode").toString())!!.first)
+                        lowTempTextView7.text = weekly_data.getJSONObject(6).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
+                        highTempTextView7.text = weekly_data.getJSONObject(6).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
+
 
 //                        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").toString())
                     },
