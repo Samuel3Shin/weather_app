@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.Response
@@ -48,7 +50,7 @@ class MainActivity : AppCompatActivity() {
                 city = response.getString("city")
                 state = response.getString("region")
 
-                var weatherUrl = "http://10.26.27.78:8080/weather?lat=${lat}&lng=${lng}"
+                var weatherUrl = "http://10.26.50.246:8080/weather?lat=${lat}&lng=${lng}"
 
                 //        var weatherUrl = "http://127.0.0.1:8080/weather"
                 val weatherRequest = JsonObjectRequest(
@@ -63,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                         mainWeatherIcon.setImageResource(Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.first)
                         mainWeatherTextView.text = Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.second
 
-                        temperatureTextView.text = current_data.getString("temperature").toString()
+                        temperatureTextView.text = current_data.getString("temperature").toDouble().roundToInt().toString() + "°F"
                         humidityTextView.text = current_data.getString("humidity").toString()
                         windTextView.text = current_data.getString("windSpeed").toString()
                         visibilityTextView.text = current_data.getString("visibility").toString()
@@ -152,13 +154,38 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
+//    // create an action bar button
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
+//        // If you don't have res/menu, just create a directory named "menu" inside res
+//        menuInflater.inflate(R.menu.mymenu, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+
     // create an action bar button
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
         // If you don't have res/menu, just create a directory named "menu" inside res
-        menuInflater.inflate(R.menu.mymenu, menu)
+        menuInflater.inflate(R.menu.menu_search, menu)
+
+        with((menu!!.findItem(R.id.search).actionView as SearchView)) {
+//            setOnQueryTextListener(this@MainActivity)
+            queryHint = getString(R.string.search_hint)
+
+        }
         return super.onCreateOptionsMenu(menu)
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater): Boolean {
+//        inflater.inflate(R.menu.menu_search, menu)
+//
+//        with((menu.findItem(R.id.search).actionView as SearchView)) {
+////            setOnQueryTextListener(this@NeighborhoodFragment)
+//            queryHint = getString(R.string.filter_places)
+//        }
+//
+//        return super.onCreateOptionsMenu(menu)
+//    }
 
     // handle button activities
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -10,7 +10,7 @@ import android.os.Looper
 import android.util.Log
 
 class SplashScreenActivity: Activity() {
-    private val duration:Long = 300
+    private val duration:Long = 3000
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("TAG", "splash screen started!")

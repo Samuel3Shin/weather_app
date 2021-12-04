@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.fragment_today_tab.*
 
 import org.json.JSONObject
 import org.json.JSONTokener
+import kotlin.math.roundToInt
 
 class TodayTab : Fragment() {
     override fun onCreateView(
@@ -31,7 +32,7 @@ class TodayTab : Fragment() {
         wind_speed_textview.text =  current_data.getString("windSpeed").toString() + " mph"
         pressure_textview.text =  current_data.getString("pressureSeaLevel").toString() + " inHg"
         precipitation_textview.text =  current_data.getString("precipitationProbability").toString() + " %"
-        temperature_textview.text =  current_data.getString("temperature").toString() + " °F"
+        temperature_textview.text =  current_data.getString("temperature").toDouble().roundToInt().toString() + " °F"
 
         humidity_textview.text =  current_data.getString("humidity").toString() + "%"
         visibility_textview.text =  current_data.getString("visibility").toString() + " mi"
