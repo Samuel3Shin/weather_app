@@ -21,7 +21,6 @@ import kotlin.math.roundToInt
 
 
 class MainActivity : AppCompatActivity() {
-    val posts: MutableList<DailyTempPost> = mutableListOf()
     var lat = ""
     var lng = ""
     var json_data = ""
