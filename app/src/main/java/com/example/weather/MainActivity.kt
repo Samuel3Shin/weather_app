@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity() {
             { response ->
 
                 Log.d("TAG", response.getString("loc"))
-                lat = response.getString("loc").split(",")[0]
-                lng = response.getString("loc").split(",")[1]
+                var lat = response.getString("loc").split(",")[0]
+                var lng = response.getString("loc").split(",")[1]
 
                 addressTextView.text = response.getString("city") + ", " + response.getString("region")
                 city = response.getString("city")
@@ -76,10 +76,10 @@ class MainActivity : AppCompatActivity() {
                         mainWeatherTextView.text = Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.second
 
                         temperatureTextView.text = current_data.getString("temperature").toDouble().roundToInt().toString() + "°F"
-                        humidityTextView.text = current_data.getString("humidity").toString()
-                        windTextView.text = current_data.getString("windSpeed").toString()
-                        visibilityTextView.text = current_data.getString("visibility").toString()
-                        pressureTextView.text = current_data.getString("pressureSeaLevel").toString()
+                        humidityTextView.text = current_data.getString("humidity").toString() + "%"
+                        windTextView.text = current_data.getString("windSpeed").toString() + "mph"
+                        visibilityTextView.text = current_data.getString("visibility").toString() + "mi"
+                        pressureTextView.text = current_data.getString("pressureSeaLevel").toString() + "inHg"
 
                         var weekly_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(2).getJSONArray("intervals")
 
@@ -164,25 +164,11 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-//    // create an action bar button
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
-//        // If you don't have res/menu, just create a directory named "menu" inside res
-//        menuInflater.inflate(R.menu.mymenu, menu)
-//        return super.onCreateOptionsMenu(menu)
-//    }
-
     // create an action bar button
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
         // If you don't have res/menu, just create a directory named "menu" inside res
         menuInflater.inflate(R.menu.menu_search, menu)
 
-//        with((menu!!.findItem(R.id.search).actionView as SearchView)) {
-////            setOnQueryTextListener(this@MainActivity)
-//            queryHint = getString(R.string.search_hint)
-//
-//        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -201,42 +187,6 @@ class MainActivity : AppCompatActivity() {
             else -> false
         }
 
-        // legacy
-
-//        val id: Int = item.getItemId()
-//
-//
-//        if(id== R.id.search) {
-//            Log.d("TAG", "search button clicked")
-//        }
-//
-//        if (id == R.id.mybutton) {
-//            Log.d("TAG", "search button clicked")
-
-//            val intent = Intent(this, SearchableActivity::class.java)
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-//            startActivity(intent)
-//            finish()
-            // do something here
-
-//            // Create the text message with a string.
-//            val sendIntent = Intent().apply {
-//                action = Intent.ACTION_SEARCH
-////                putExtra(Intent.EXTRA_TEXT, textMessage)
-////                type = "text/plain"
-//            }
-//
-//            // Try to invoke the intent.
-//            try {
-//                Log.d("TAG", "start activity1")
-//                startActivity(sendIntent)
-//                Log.d("TAG", "search button clicked2")
-//            } catch (e: ActivityNotFoundException) {
-//                Log.d("TAG", "Error occured!")
-//                // Define what your app should do if no activity can handle the intent.
-//            }
-//        }
-//        return super.onOptionsItemSelected(item)
     }
 
     fun onSearchCalled() {
@@ -264,8 +214,40 @@ class MainActivity : AppCompatActivity() {
                         val place = Autocomplete.getPlaceFromIntent(data)
                         Log.i("TAG", place.toString())
                         Log.i("TAG", "Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress() + ", " + place.latLng);
-                        Toast.makeText(this, "ID: " + place.getId() + "address:" + place.getAddress() + "Name:" + place.getName() + " latlong: " + place.getLatLng(), Toast.LENGTH_LONG).show();
 
+                        Log.d("TAG", "search result click!")
+
+                        val queue = Volley.newRequestQueue(this)
+
+                        var lat = place.latLng.toString().split(": ")[1].split(",")[0]
+                        var lng = place.latLng.toString().split(": ")[1].split(",")[1]
+
+                        var city = place.getAddress().toString().split(", ")[0]
+                        var state = place.getAddress().toString().split(", ")[1]
+
+                        var weatherUrl = "http://10.26.50.246:8080/weather?lat=${lat}&lng=${lng}"
+
+                        val weatherRequest = JsonObjectRequest(
+                            Request.Method.GET, weatherUrl, null,
+                            { response ->
+                                val jsonObject = JSONTokener(response.toString()).nextValue() as JSONObject
+                                json_data = response.toString()
+
+                                val intent = Intent(this, SearchResultActivity::class.java)
+                                intent.putExtra("json_data", json_data)
+                                intent.putExtra("city", city)
+                                intent.putExtra("state", state)
+
+                                startActivity(intent)
+
+                            },
+                            { error ->
+                                // TODO: Handle error
+                                Log.d("TAG", error.toString())
+                            }
+                        )
+
+                        queue.add(weatherRequest)
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {

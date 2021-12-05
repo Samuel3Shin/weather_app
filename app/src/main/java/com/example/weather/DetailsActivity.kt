@@ -48,7 +48,7 @@ class DetailsActivity : AppCompatActivity() {
 
         // calling the action bar
         var actionBar = supportActionBar
-        actionBar?.title = "Seattle, Washington"
+        actionBar?.title = city + ", " + state
 
         // showing the back button in action bar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -132,7 +132,6 @@ class DetailsActivity : AppCompatActivity() {
     // Twitter button
     // create an action bar button
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        // R.menu.mymenu is a reference to an xml file named mymenu.xml which should be inside your res/menu directory.
         // If you don't have res/menu, just create a directory named "menu" inside res
         menuInflater.inflate(R.menu.twitter_menu, menu)
         return super.onCreateOptionsMenu(menu)
