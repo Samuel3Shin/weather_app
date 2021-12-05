@@ -16,4 +16,7 @@
     <string name="filter_places">Filter places</string>
     <string name="search">Search</string>
 
+    <string name="menu_search">Search...</string>
+    <string name="api_key">AIzaSyB6wzX7VVJILzNoa2cbSUebst5BmBOLzEA</string>
+
 </resources>

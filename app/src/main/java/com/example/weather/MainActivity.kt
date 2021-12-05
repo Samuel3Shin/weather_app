@@ -1,5 +1,6 @@
 package com.example.weather
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,13 +16,20 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteActivity
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import org.json.JSONTokener
+import java.util.*
 import kotlin.math.roundToInt
 
 
 class MainActivity : AppCompatActivity() {
+    val AUTOCOMPLETE_REQUEST_CODE = 1
     var lat = ""
     var lng = ""
     var json_data = ""
@@ -32,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Places API initialize
+        Places.initialize(getApplicationContext(), getString(R.string.api_key));
 
         // get IP info API
         val queue = Volley.newRequestQueue(this)
@@ -167,30 +178,40 @@ class MainActivity : AppCompatActivity() {
         // If you don't have res/menu, just create a directory named "menu" inside res
         menuInflater.inflate(R.menu.menu_search, menu)
 
-        with((menu!!.findItem(R.id.search).actionView as SearchView)) {
-//            setOnQueryTextListener(this@MainActivity)
-            queryHint = getString(R.string.search_hint)
-
-        }
+//        with((menu!!.findItem(R.id.search).actionView as SearchView)) {
+////            setOnQueryTextListener(this@MainActivity)
+//            queryHint = getString(R.string.search_hint)
+//
+//        }
         return super.onCreateOptionsMenu(menu)
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater): Boolean {
-//        inflater.inflate(R.menu.menu_search, menu)
-//
-//        with((menu.findItem(R.id.search).actionView as SearchView)) {
-////            setOnQueryTextListener(this@NeighborhoodFragment)
-//            queryHint = getString(R.string.filter_places)
-//        }
-//
-//        return super.onCreateOptionsMenu(menu)
-//    }
 
     // handle button activities
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id: Int = item.getItemId()
-        if (id == R.id.mybutton) {
-            Log.d("TAG", "search button clicked")
+        return when (item.itemId) {
+            R.id.search -> {
+                onSearchCalled()
+                true
+            }
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> false
+        }
+
+        // legacy
+
+//        val id: Int = item.getItemId()
+//
+//
+//        if(id== R.id.search) {
+//            Log.d("TAG", "search button clicked")
+//        }
+//
+//        if (id == R.id.mybutton) {
+//            Log.d("TAG", "search button clicked")
 
 //            val intent = Intent(this, SearchableActivity::class.java)
 //            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
@@ -198,23 +219,68 @@ class MainActivity : AppCompatActivity() {
 //            finish()
             // do something here
 
-            // Create the text message with a string.
-            val sendIntent = Intent().apply {
-                action = Intent.ACTION_SEARCH
-//                putExtra(Intent.EXTRA_TEXT, textMessage)
-//                type = "text/plain"
-            }
+//            // Create the text message with a string.
+//            val sendIntent = Intent().apply {
+//                action = Intent.ACTION_SEARCH
+////                putExtra(Intent.EXTRA_TEXT, textMessage)
+////                type = "text/plain"
+//            }
+//
+//            // Try to invoke the intent.
+//            try {
+//                Log.d("TAG", "start activity1")
+//                startActivity(sendIntent)
+//                Log.d("TAG", "search button clicked2")
+//            } catch (e: ActivityNotFoundException) {
+//                Log.d("TAG", "Error occured!")
+//                // Define what your app should do if no activity can handle the intent.
+//            }
+//        }
+//        return super.onOptionsItemSelected(item)
+    }
 
-            // Try to invoke the intent.
-            try {
-                Log.d("TAG", "start activity1")
-                startActivity(sendIntent)
-                Log.d("TAG", "search button clicked2")
-            } catch (e: ActivityNotFoundException) {
-                Log.d("TAG", "Error occured!")
-                // Define what your app should do if no activity can handle the intent.
+    fun onSearchCalled() {
+        // Set the fields to specify which types of place data to return.
+        val fields = Arrays.asList(
+            Place.Field.ID,
+            Place.Field.NAME,
+            Place.Field.ADDRESS,
+            Place.Field.LAT_LNG
+        )
+
+        // Start the autocomplete intent.
+        val intent = Autocomplete.IntentBuilder(
+            AutocompleteActivityMode.OVERLAY, fields
+        ).setCountry("US") // US
+            .build(this)
+        startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            when (resultCode) {
+                Activity.RESULT_OK -> {
+                    data?.let {
+                        val place = Autocomplete.getPlaceFromIntent(data)
+                        Log.i("TAG", place.toString())
+                        Log.i("TAG", "Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress() + ", " + place.latLng);
+                        Toast.makeText(this, "ID: " + place.getId() + "address:" + place.getAddress() + "Name:" + place.getName() + " latlong: " + place.getLatLng(), Toast.LENGTH_LONG).show();
+
+                    }
+                }
+                AutocompleteActivity.RESULT_ERROR -> {
+                    // TODO: Handle the error.
+                    data?.let {
+                        val status = Autocomplete.getStatusFromIntent(data)
+                        Log.i("TAG", status.statusMessage.toString())
+                    }
+                }
+                Activity.RESULT_CANCELED -> {
+                    // The user canceled the operation.
+                }
             }
+            return
         }
-        return super.onOptionsItemSelected(item)
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
