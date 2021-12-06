@@ -1,162 +1,71 @@
 package com.example.weather
 
 import android.app.Activity
-import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
-import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import org.json.JSONTokener
 import java.util.*
-import kotlin.math.roundToInt
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity()  {
+
+    val preference: SharedPreferences by lazy {getSharedPreferences("mainActivity", Context.MODE_PRIVATE)}
+
     val AUTOCOMPLETE_REQUEST_CODE = 1
+    val ADD_TAB_REQUEST_CODE = 2
     var lat = ""
     var lng = ""
     var json_data = ""
     var city = ""
     var state = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    private var NUM_PAGES = 1
+    private lateinit var mPager: ViewPager
+    private lateinit var pagerAdapter: ScreenSlidePagerAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Places API initialize
-        Places.initialize(getApplicationContext(), getString(R.string.api_key));
+//        var favoriteInfoStr = preference.getString("favoriteInfo", "")
+//        NUM_PAGES = kotlin.math.max(1, favoriteInfoStr!!.split("@").size)
+//        Log.d("TAG", "page number: " + favoriteInfoStr.toString())
+//        Log.d("TAG", "page number: " + NUM_PAGES.toString())
 
-        // get IP info API
-        val queue = Volley.newRequestQueue(this)
-        val ipUrl = "https://ipinfo.io/json?token=ecddd4a7e21254"
+        // Instantiate a ViewPager and a PagerAdapter.
+        mPager = findViewById(R.id.pager)
 
-        val ipInfoRequest = JsonObjectRequest(
-            Request.Method.GET, ipUrl, null,
-            { response ->
+        // The pager adapter, which provides the pages to the view pager widget.
+        pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
+        mPager.adapter = pagerAdapter
+    }
 
-                Log.d("TAG", response.getString("loc"))
-                var lat = response.getString("loc").split(",")[0]
-                var lng = response.getString("loc").split(",")[1]
+    fun removePage(position: Int) {
+        mPager.removeViewAt(position)
+        pagerAdapter.notifyDataSetChanged()
+    }
 
-                addressTextView.text = response.getString("city") + ", " + response.getString("region")
-                city = response.getString("city")
-                state = response.getString("region")
-
-                var weatherUrl = "http://10.26.50.246:8080/weather?lat=${lat}&lng=${lng}"
-
-                //        var weatherUrl = "http://127.0.0.1:8080/weather"
-                val weatherRequest = JsonObjectRequest(
-                    Request.Method.GET, weatherUrl, null,
-                    { response ->
-                        val jsonObject = JSONTokener(response.toString()).nextValue() as JSONObject
-                        json_data = response.toString()
-
-                        var current_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values")
-
-//                        Log.d("TAG", Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.first.toString())
-                        mainWeatherIcon.setImageResource(Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.first)
-                        mainWeatherTextView.text = Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.second
-
-                        temperatureTextView.text = current_data.getString("temperature").toDouble().roundToInt().toString() + "°F"
-                        humidityTextView.text = current_data.getString("humidity").toString() + "%"
-                        windTextView.text = current_data.getString("windSpeed").toString() + "mph"
-                        visibilityTextView.text = current_data.getString("visibility").toString() + "mi"
-                        pressureTextView.text = current_data.getString("pressureSeaLevel").toString() + "inHg"
-
-                        var weekly_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(2).getJSONArray("intervals")
-
-                        var dateStr = weekly_data.getJSONObject(0).getString("startTime")
-                        dateTextView1.text = dateStr.substring(0, dateStr.length-15)
-                        iconImg1.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(0).getJSONObject("values").getString("weatherCode").toString())!!.first)
-                        lowTempTextView1.text = weekly_data.getJSONObject(0).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
-                        highTempTextView1.text = weekly_data.getJSONObject(0).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
-
-                        dateStr = weekly_data.getJSONObject(1).getString("startTime")
-                        dateTextView2.text = dateStr.substring(0, dateStr.length-15)
-                        iconImg2.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(1).getJSONObject("values").getString("weatherCode").toString())!!.first)
-                        lowTempTextView2.text = weekly_data.getJSONObject(1).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
-                        highTempTextView2.text = weekly_data.getJSONObject(1).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
-
-                        dateStr = weekly_data.getJSONObject(2).getString("startTime")
-                        dateTextView3.text = dateStr.substring(0, dateStr.length-15)
-                        iconImg3.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(2).getJSONObject("values").getString("weatherCode").toString())!!.first)
-                        lowTempTextView3.text = weekly_data.getJSONObject(2).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
-                        highTempTextView3.text = weekly_data.getJSONObject(2).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
-
-                        dateStr = weekly_data.getJSONObject(3).getString("startTime")
-                        dateTextView4.text = dateStr.substring(0, dateStr.length-15)
-                        iconImg4.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(3).getJSONObject("values").getString("weatherCode").toString())!!.first)
-                        lowTempTextView4.text = weekly_data.getJSONObject(3).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
-                        highTempTextView4.text = weekly_data.getJSONObject(3).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
-
-                        dateStr = weekly_data.getJSONObject(4).getString("startTime")
-                        dateTextView5.text = dateStr.substring(0, dateStr.length-15)
-                        iconImg5.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(4).getJSONObject("values").getString("weatherCode").toString())!!.first)
-                        lowTempTextView5.text = weekly_data.getJSONObject(4).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
-                        highTempTextView5.text = weekly_data.getJSONObject(4).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
-
-                        dateStr = weekly_data.getJSONObject(5).getString("startTime")
-                        dateTextView6.text = dateStr.substring(0, dateStr.length-15)
-                        iconImg6.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(5).getJSONObject("values").getString("weatherCode").toString())!!.first)
-                        lowTempTextView6.text = weekly_data.getJSONObject(5).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
-                        highTempTextView6.text = weekly_data.getJSONObject(5).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
-
-
-                        dateStr = weekly_data.getJSONObject(6).getString("startTime")
-                        dateTextView7.text = dateStr.substring(0, dateStr.length-15)
-                        iconImg7.setImageResource(Utils.weatherCodeMap.get(weekly_data.getJSONObject(6).getJSONObject("values").getString("weatherCode").toString())!!.first)
-                        lowTempTextView7.text = weekly_data.getJSONObject(6).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
-                        highTempTextView7.text = weekly_data.getJSONObject(6).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
-
-
-//                        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").toString())
-                    },
-                    { error ->
-                        // TODO: Handle error
-                        Log.d("TAG", error.toString())
-                    }
-                )
-                queue.add(weatherRequest)
-
-            },
-            { error ->
-                // TODO: Handle error
-                Log.d("TAG", error.toString())
-            }
-        )
-
-        queue.add(ipInfoRequest)
-
-        // Card 1 click -> detail
-        card1.setOnClickListener {
-
-            Log.d("TAG", "card1 click!")
-            val intent = Intent(this, DetailsActivity::class.java)
-            intent.putExtra("json_data", json_data)
-            intent.putExtra("city", city)
-            intent.putExtra("state", state)
-
-            startActivity(intent)
-        }
-
+    fun addPage() {
+        pagerAdapter.notifyDataSetChanged()
     }
 
     // Called before the activity is destroyed
@@ -168,7 +77,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // If you don't have res/menu, just create a directory named "menu" inside res
         menuInflater.inflate(R.menu.menu_search, menu)
-
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -219,8 +127,8 @@ class MainActivity : AppCompatActivity() {
 
                         val queue = Volley.newRequestQueue(this)
 
-                        var lat = place.latLng.toString().split(": ")[1].split(",")[0]
-                        var lng = place.latLng.toString().split(": ")[1].split(",")[1]
+                        var lat = place.latLng.toString().split(": ")[1].split(",")[0].substring(1)
+                        var lng = place.latLng.toString().split(": ")[1].split(",")[1].split(")")[0]
 
                         var city = place.getAddress().toString().split(", ")[0]
                         var state = place.getAddress().toString().split(", ")[1]
@@ -237,8 +145,12 @@ class MainActivity : AppCompatActivity() {
                                 intent.putExtra("json_data", json_data)
                                 intent.putExtra("city", city)
                                 intent.putExtra("state", state)
+                                intent.putExtra("lat", lat)
+                                intent.putExtra("lng", lng)
 
-                                startActivity(intent)
+//                                startActivity(intent)
+                                startActivityForResult(intent, ADD_TAB_REQUEST_CODE)
+//                                finish()
 
                             },
                             { error ->
@@ -262,7 +174,39 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             return
+        } else if(requestCode == ADD_TAB_REQUEST_CODE) {
+            // add page
+            addPage()
         }
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    /**
+     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
+     * sequence.
+     */
+    private inner class ScreenSlidePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+        override fun getCount(): Int {
+            var favoriteInfoStr = preference.getString("favoriteInfo", "")
+            NUM_PAGES = kotlin.math.max(1, favoriteInfoStr!!.split("@").size)
+            return NUM_PAGES
+        }
+
+        override fun getItem(position: Int): Fragment {
+            val fragmentFirst = ScreenSlidePageFragment()
+            val args = Bundle()
+            args.putInt("pageNum", position)
+            fragmentFirst.setArguments(args)
+            return fragmentFirst
+        }
+
+        override fun getItemPosition(@NonNull Object: Any): Int {
+            return POSITION_NONE
+        }
+
+//        fun getItemPosition(Object: Any?): Int {
+//            return POSITION_NONE
+//        }
+
     }
 }

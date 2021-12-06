@@ -9,767 +9,789 @@
     tools:ignore="ContentDescription"
     tools:context=".MainActivity">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card1"
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_height="match_parent"
 
-        app:cardBackgroundColor="#272727"
-        app:cardCornerRadius="10dp"
-
-        app:layout_constraintBottom_toTopOf="@+id/card2"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" >
 
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.tabs.TabLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <ImageView
-                android:id="@+id/mainWeatherIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-
-                app:layout_constraintHorizontal_bias="0.245"
-                app:layout_constraintLeft_toLeftOf="parent"
-
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_cloudy"/>
-
-            <TextView
-                android:id="@+id/temperatureTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:text="56F"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-
-                app:layout_constraintBottom_toBottomOf="@+id/mainWeatherIcon"
-                app:layout_constraintLeft_toRightOf="@+id/mainWeatherIcon"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.56" />
-
-            <TextView
-                android:id="@+id/mainWeatherTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="20dp"
-                android:text="Mostly Cloudy"
-                android:textColor="#7f7f7f"
-                android:textSize="24sp"
-
-                app:layout_constraintBottom_toBottomOf="@+id/mainWeatherIcon"
-                app:layout_constraintLeft_toRightOf="@+id/mainWeatherIcon"
-                app:layout_constraintTop_toBottomOf="@+id/temperatureTextView"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <TextView
-                android:id="@+id/addressTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New York, NY, USA"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_gravity="center_horizontal"
-
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mainWeatherIcon" />
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/information_outline" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card2"
-        android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-
-        app:cardCornerRadius="10dp"
-
-        app:cardBackgroundColor="#272727"
-        app:layout_constraintTop_toBottomOf="@+id/card1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/card1">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView2"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.18"
-                app:srcCompat="@drawable/water_percent" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                app:layout_constraintBottom_toBottomOf="@+id/imageView1"
-                app:layout_constraintEnd_toStartOf="@+id/imageView3"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView1"
-                app:layout_constraintTop_toTopOf="@+id/imageView1"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/weather_windy" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                app:layout_constraintBottom_toBottomOf="@+id/imageView1"
-                app:layout_constraintEnd_toStartOf="@+id/imageView4"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/imageView1"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/eye_outline" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/imageView1"
-                app:srcCompat="@drawable/gauge" />
-
-            <TextView
-                android:id="@+id/humidityTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="68%"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-
-                app:layout_constraintEnd_toEndOf="@+id/imageView1"
-                app:layout_constraintStart_toStartOf="@+id/imageView1"
-
-                app:layout_constraintTop_toBottomOf="@+id/imageView1"
-                app:layout_constraintVertical_bias="0.1" />
-
-            <TextView
-                android:id="@+id/windTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4.05mph"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-
-                app:layout_constraintBottom_toBottomOf="@+id/humidityTextView"
-                app:layout_constraintEnd_toEndOf="@+id/imageView2"
-
-                app:layout_constraintStart_toStartOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/humidityTextView" />
-
-            <TextView
-                android:id="@+id/visibilityTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="9.94mi"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-
-                app:layout_constraintBottom_toBottomOf="@+id/windTextView"
-                app:layout_constraintEnd_toEndOf="@+id/imageView3"
-
-                app:layout_constraintStart_toStartOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/windTextView" />
-
-            <TextView
-                android:id="@+id/pressureTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="29.83inHg"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-
-                app:layout_constraintBottom_toBottomOf="@+id/visibilityTextView"
-                app:layout_constraintEnd_toEndOf="@+id/imageView4"
-
-                app:layout_constraintStart_toStartOf="@+id/imageView4"
-                app:layout_constraintTop_toTopOf="@+id/visibilityTextView" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Humidity"
-                android:textColor="#7f7f7f"
-                android:textSize="16sp"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/imageView1"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/imageView1"
-                app:layout_constraintTop_toBottomOf="@+id/humidityTextView" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Wind Speed"
-                android:textColor="#7f7f7f"
-                android:textSize="16sp"
-
-                app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                app:layout_constraintEnd_toEndOf="@+id/imageView2"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/imageView2"
-                app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-            <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Visibility"
-                android:textColor="#7f7f7f"
-                android:textSize="16sp"
-
-                app:layout_constraintHorizontal_bias="0.5"
-
-                app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                app:layout_constraintEnd_toEndOf="@+id/imageView3"
-                app:layout_constraintStart_toStartOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-            <TextView
-                android:id="@+id/textView11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Pressure"
-                android:textColor="#7f7f7f"
-                android:textSize="16sp"
-
-                app:layout_constraintBottom_toBottomOf="@+id/textView7"
-                app:layout_constraintEnd_toEndOf="@+id/imageView4"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="@+id/imageView4"
-                app:layout_constraintTop_toTopOf="@+id/textView7" />
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card3"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-
-        app:cardCornerRadius="10dp"
-
-        app:cardBackgroundColor="#272727"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card2">
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/dateTextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-
-                    android:text="2021-10-27"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg1"
-                    app:layout_constraintStart_toStartOf="parent"
-
-                    app:layout_constraintTop_toTopOf="@+id/iconImg1" />
-
-                <ImageView
-                    android:id="@+id/iconImg1"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="80dp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintStart_toEndOf="@+id/dateTextView1"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.031"
-                    app:srcCompat="@drawable/ic_clear_day" />
-
-                <TextView
-                    android:id="@+id/lowTempTextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-
-                    android:text="46"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg1"
-                    app:layout_constraintStart_toEndOf="@+id/iconImg1"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg1" />
-
-                <TextView
-                    android:id="@+id/highTempTextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-
-                    android:text="60"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg1"
-                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView1"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg1" />
-
-                <View
-                    android:id="@+id/view1"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-
-                    android:background="@android:color/darker_gray"
-                    app:layout_constraintTop_toBottomOf="@+id/iconImg1" />
-
-                <TextView
-                    android:id="@+id/dateTextView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-
-                    android:text="2021-10-27"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg2"
-                    app:layout_constraintStart_toStartOf="parent"
-
-                    app:layout_constraintTop_toTopOf="@+id/iconImg2" />
-
-                <ImageView
-                    android:id="@+id/iconImg2"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="80dp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintStart_toEndOf="@+id/dateTextView2"
-                    app:layout_constraintTop_toBottomOf="@+id/view1"
-                    app:layout_constraintVertical_bias="0.031"
-                    app:srcCompat="@drawable/ic_clear_day" />
-
-                <TextView
-                    android:id="@+id/lowTempTextView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-
-                    android:text="46"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg2"
-                    app:layout_constraintStart_toEndOf="@+id/iconImg2"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg2" />
-
-                <TextView
-                    android:id="@+id/highTempTextView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-
-                    android:text="60"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg2"
-                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView2"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg2" />
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-
-                    android:background="@android:color/darker_gray"
-                    app:layout_constraintTop_toBottomOf="@+id/iconImg2" />
-
-                <TextView
-                    android:id="@+id/dateTextView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-
-                    android:text="2021-10-27"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg3"
-                    app:layout_constraintStart_toStartOf="parent"
-
-                    app:layout_constraintTop_toTopOf="@+id/iconImg3" />
-
-                <ImageView
-                    android:id="@+id/iconImg3"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="80dp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintStart_toEndOf="@+id/dateTextView3"
-                    app:layout_constraintTop_toBottomOf="@+id/view2"
-                    app:layout_constraintVertical_bias="0.031"
-                    app:srcCompat="@drawable/ic_clear_day" />
-
-                <TextView
-                    android:id="@+id/lowTempTextView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-
-                    android:text="46"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg3"
-                    app:layout_constraintStart_toEndOf="@+id/iconImg3"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg3" />
-
-                <TextView
-                    android:id="@+id/highTempTextView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-
-                    android:text="60"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg3"
-                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView3"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg3" />
-
-                <View
-                    android:id="@+id/view3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-
-                    android:background="@android:color/darker_gray"
-                    app:layout_constraintTop_toBottomOf="@+id/iconImg3" />
-
-                <TextView
-                    android:id="@+id/dateTextView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-
-                    android:text="2021-10-27"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg4"
-                    app:layout_constraintStart_toStartOf="parent"
-
-                    app:layout_constraintTop_toTopOf="@+id/iconImg4" />
-
-                <ImageView
-                    android:id="@+id/iconImg4"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="80dp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintStart_toEndOf="@+id/dateTextView4"
-                    app:layout_constraintTop_toBottomOf="@+id/view3"
-                    app:layout_constraintVertical_bias="0.031"
-                    app:srcCompat="@drawable/ic_clear_day" />
-
-                <TextView
-                    android:id="@+id/lowTempTextView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-
-                    android:text="46"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg4"
-                    app:layout_constraintStart_toEndOf="@+id/iconImg4"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg4" />
-
-                <TextView
-                    android:id="@+id/highTempTextView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-
-                    android:text="60"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg4"
-                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView4"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg4" />
-
-                <View
-                    android:id="@+id/view4"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-
-                    android:background="@android:color/darker_gray"
-                    app:layout_constraintTop_toBottomOf="@+id/iconImg4" />
-
-                <TextView
-                    android:id="@+id/dateTextView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-
-                    android:text="2021-10-27"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg5"
-                    app:layout_constraintStart_toStartOf="parent"
-
-                    app:layout_constraintTop_toTopOf="@+id/iconImg5" />
-
-                <ImageView
-                    android:id="@+id/iconImg5"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="80dp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintStart_toEndOf="@+id/dateTextView5"
-                    app:layout_constraintTop_toBottomOf="@+id/view4"
-                    app:layout_constraintVertical_bias="0.031"
-                    app:srcCompat="@drawable/ic_clear_day" />
-
-                <TextView
-                    android:id="@+id/lowTempTextView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-
-                    android:text="46"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg5"
-                    app:layout_constraintStart_toEndOf="@+id/iconImg5"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg5" />
-
-                <TextView
-                    android:id="@+id/highTempTextView5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-
-                    android:text="60"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg5"
-                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView5"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg5" />
-
-                <View
-                    android:id="@+id/view5"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-
-                    android:background="@android:color/darker_gray"
-                    app:layout_constraintTop_toBottomOf="@+id/iconImg5" />
-
-                <TextView
-                    android:id="@+id/dateTextView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-
-                    android:text="2021-10-27"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg6"
-                    app:layout_constraintStart_toStartOf="parent"
-
-                    app:layout_constraintTop_toTopOf="@+id/iconImg6" />
-
-                <ImageView
-                    android:id="@+id/iconImg6"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="80dp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintStart_toEndOf="@+id/dateTextView6"
-                    app:layout_constraintTop_toBottomOf="@+id/view5"
-                    app:layout_constraintVertical_bias="0.031"
-                    app:srcCompat="@drawable/ic_clear_day" />
-
-                <TextView
-                    android:id="@+id/lowTempTextView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-
-                    android:text="46"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg6"
-                    app:layout_constraintStart_toEndOf="@+id/iconImg6"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg6" />
-
-                <TextView
-                    android:id="@+id/highTempTextView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-
-                    android:text="60"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg6"
-                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView6"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg6" />
-
-                <View
-                    android:id="@+id/view6"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-
-                    android:background="@android:color/darker_gray"
-                    app:layout_constraintTop_toBottomOf="@+id/iconImg6" />
-
-
-                <TextView
-                    android:id="@+id/dateTextView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="28dp"
-
-                    android:text="2021-10-27"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg7"
-                    app:layout_constraintStart_toStartOf="parent"
-
-                    app:layout_constraintTop_toTopOf="@+id/iconImg7" />
-
-                <ImageView
-                    android:id="@+id/iconImg7"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="80dp"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintStart_toEndOf="@+id/dateTextView7"
-                    app:layout_constraintTop_toBottomOf="@+id/view6"
-                    app:layout_constraintVertical_bias="0.031"
-                    app:srcCompat="@drawable/ic_clear_day" />
-
-                <TextView
-                    android:id="@+id/lowTempTextView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-
-                    android:text="46"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg7"
-                    app:layout_constraintStart_toEndOf="@+id/iconImg7"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg7" />
-
-                <TextView
-                    android:id="@+id/highTempTextView7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
-
-                    android:text="60"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/iconImg7"
-                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView7"
-                    app:layout_constraintTop_toTopOf="@+id/iconImg7" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.core.widget.NestedScrollView>
-    </androidx.cardview.widget.CardView>
+            android:layout_height="wrap_content"
+            android:background="@color/black"
+            app:tabBackground="@drawable/tab_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp">
+
+        </com.google.android.material.tabs.TabLayout>
+    </androidx.viewpager.widget.ViewPager>
+
+
+    <!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+
+<!--        app:cardBackgroundColor="#272727"-->
+<!--        app:cardCornerRadius="10dp"-->
+
+<!--        app:layout_constraintBottom_toTopOf="@+id/card2"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent" >-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/mainWeatherIcon"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+
+<!--                app:layout_constraintHorizontal_bias="0.245"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:srcCompat="@drawable/ic_cloudy"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/temperatureTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginTop="20dp"-->
+<!--                android:text="56F"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="30sp"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/mainWeatherIcon"-->
+<!--                app:layout_constraintLeft_toRightOf="@+id/mainWeatherIcon"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.56" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/mainWeatherTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:text="Mostly Cloudy"-->
+<!--                android:textColor="#7f7f7f"-->
+<!--                android:textSize="24sp"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/mainWeatherIcon"-->
+<!--                app:layout_constraintLeft_toRightOf="@+id/mainWeatherIcon"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/temperatureTextView"-->
+<!--                app:layout_constraintVertical_bias="1.0" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/addressTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="New York, NY, USA"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="18sp"-->
+<!--                android:layout_gravity="center_horizontal"-->
+
+
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/mainWeatherIcon" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="30dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:srcCompat="@drawable/information_outline" />-->
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="180dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+
+<!--        app:cardCornerRadius="10dp"-->
+
+<!--        app:cardBackgroundColor="#272727"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/card1"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.495"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/card1">-->
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView1"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/imageView2"-->
+
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.18"-->
+<!--                app:srcCompat="@drawable/water_percent" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/imageView1"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/imageView3"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/imageView1"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/imageView1"-->
+<!--                app:layout_constraintVertical_bias="0.0"-->
+<!--                app:srcCompat="@drawable/weather_windy" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView3"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/imageView1"-->
+<!--                app:layout_constraintEnd_toStartOf="@+id/imageView4"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/imageView2"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/imageView1"-->
+<!--                app:layout_constraintVertical_bias="0.0"-->
+<!--                app:srcCompat="@drawable/eye_outline" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/imageView4"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:layout_constraintBottom_toBottomOf="@+id/imageView3"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/imageView3"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/imageView1"-->
+<!--                app:srcCompat="@drawable/gauge" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/humidityTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="68%"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="20sp"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+
+<!--                app:layout_constraintEnd_toEndOf="@+id/imageView1"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/imageView1"-->
+
+<!--                app:layout_constraintTop_toBottomOf="@+id/imageView1"-->
+<!--                app:layout_constraintVertical_bias="0.1" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/windTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="4.05mph"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="20sp"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/humidityTextView"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/imageView2"-->
+
+<!--                app:layout_constraintStart_toStartOf="@+id/imageView2"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/humidityTextView" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/visibilityTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="9.94mi"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="20sp"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/windTextView"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/imageView3"-->
+
+<!--                app:layout_constraintStart_toStartOf="@+id/imageView3"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/windTextView" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/pressureTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="29.83inHg"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textSize="20sp"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/visibilityTextView"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/imageView4"-->
+
+<!--                app:layout_constraintStart_toStartOf="@+id/imageView4"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/visibilityTextView" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView7"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Humidity"-->
+<!--                android:textColor="#7f7f7f"-->
+<!--                android:textSize="16sp"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/imageView1"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/imageView1"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/humidityTextView" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView8"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Wind Speed"-->
+<!--                android:textColor="#7f7f7f"-->
+<!--                android:textSize="16sp"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/textView7"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/imageView2"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/imageView2"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/textView7" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView9"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Visibility"-->
+<!--                android:textColor="#7f7f7f"-->
+<!--                android:textSize="16sp"-->
+
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/textView7"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/imageView3"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/imageView3"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/textView7" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textView11"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Pressure"-->
+<!--                android:textColor="#7f7f7f"-->
+<!--                android:textSize="16sp"-->
+
+<!--                app:layout_constraintBottom_toBottomOf="@+id/textView7"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/imageView4"-->
+<!--                app:layout_constraintHorizontal_bias="0.5"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/imageView4"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/textView7" />-->
+
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+<!--    </androidx.cardview.widget.CardView>-->
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/card3"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginStart="5dp"-->
+<!--        android:layout_marginEnd="5dp"-->
+
+<!--        app:cardCornerRadius="10dp"-->
+
+<!--        app:cardBackgroundColor="#272727"-->
+<!--        app:layout_constraintHorizontal_bias="0.495"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/card2">-->
+
+<!--        <androidx.core.widget.NestedScrollView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
+
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dateTextView1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="28dp"-->
+
+<!--                    android:text="2021-10-27"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg1"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg1" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iconImg1"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginStart="80dp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+
+<!--                    app:layout_constraintStart_toEndOf="@+id/dateTextView1"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintVertical_bias="0.031"-->
+<!--                    app:srcCompat="@drawable/ic_clear_day" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/lowTempTextView1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="20dp"-->
+
+<!--                    android:text="46"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg1"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/iconImg1"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg1" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/highTempTextView1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="30dp"-->
+
+<!--                    android:text="60"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg1"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView1"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg1" />-->
+
+<!--                <View-->
+<!--                    android:id="@+id/view1"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+
+<!--                    android:background="@android:color/darker_gray"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/iconImg1" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dateTextView2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="28dp"-->
+
+<!--                    android:text="2021-10-27"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg2"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg2" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iconImg2"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginStart="80dp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+
+<!--                    app:layout_constraintStart_toEndOf="@+id/dateTextView2"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/view1"-->
+<!--                    app:layout_constraintVertical_bias="0.031"-->
+<!--                    app:srcCompat="@drawable/ic_clear_day" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/lowTempTextView2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="20dp"-->
+
+<!--                    android:text="46"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg2"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/iconImg2"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg2" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/highTempTextView2"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="30dp"-->
+
+<!--                    android:text="60"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg2"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView2"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg2" />-->
+
+<!--                <View-->
+<!--                    android:id="@+id/view2"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+
+<!--                    android:background="@android:color/darker_gray"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/iconImg2" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dateTextView3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="28dp"-->
+
+<!--                    android:text="2021-10-27"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg3"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg3" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iconImg3"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginStart="80dp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+
+<!--                    app:layout_constraintStart_toEndOf="@+id/dateTextView3"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/view2"-->
+<!--                    app:layout_constraintVertical_bias="0.031"-->
+<!--                    app:srcCompat="@drawable/ic_clear_day" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/lowTempTextView3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="20dp"-->
+
+<!--                    android:text="46"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg3"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/iconImg3"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg3" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/highTempTextView3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="30dp"-->
+
+<!--                    android:text="60"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg3"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView3"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg3" />-->
+
+<!--                <View-->
+<!--                    android:id="@+id/view3"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+
+<!--                    android:background="@android:color/darker_gray"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/iconImg3" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dateTextView4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="28dp"-->
+
+<!--                    android:text="2021-10-27"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg4"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg4" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iconImg4"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginStart="80dp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+
+<!--                    app:layout_constraintStart_toEndOf="@+id/dateTextView4"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/view3"-->
+<!--                    app:layout_constraintVertical_bias="0.031"-->
+<!--                    app:srcCompat="@drawable/ic_clear_day" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/lowTempTextView4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="20dp"-->
+
+<!--                    android:text="46"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg4"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/iconImg4"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg4" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/highTempTextView4"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="30dp"-->
+
+<!--                    android:text="60"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg4"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView4"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg4" />-->
+
+<!--                <View-->
+<!--                    android:id="@+id/view4"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+
+<!--                    android:background="@android:color/darker_gray"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/iconImg4" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dateTextView5"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="28dp"-->
+
+<!--                    android:text="2021-10-27"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg5"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg5" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iconImg5"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginStart="80dp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+
+<!--                    app:layout_constraintStart_toEndOf="@+id/dateTextView5"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/view4"-->
+<!--                    app:layout_constraintVertical_bias="0.031"-->
+<!--                    app:srcCompat="@drawable/ic_clear_day" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/lowTempTextView5"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="20dp"-->
+
+<!--                    android:text="46"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg5"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/iconImg5"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg5" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/highTempTextView5"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="30dp"-->
+
+<!--                    android:text="60"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg5"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView5"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg5" />-->
+
+<!--                <View-->
+<!--                    android:id="@+id/view5"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+
+<!--                    android:background="@android:color/darker_gray"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/iconImg5" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dateTextView6"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="28dp"-->
+
+<!--                    android:text="2021-10-27"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg6"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg6" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iconImg6"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginStart="80dp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+
+<!--                    app:layout_constraintStart_toEndOf="@+id/dateTextView6"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/view5"-->
+<!--                    app:layout_constraintVertical_bias="0.031"-->
+<!--                    app:srcCompat="@drawable/ic_clear_day" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/lowTempTextView6"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="20dp"-->
+
+<!--                    android:text="46"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg6"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/iconImg6"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg6" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/highTempTextView6"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="30dp"-->
+
+<!--                    android:text="60"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg6"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView6"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg6" />-->
+
+<!--                <View-->
+<!--                    android:id="@+id/view6"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_marginTop="5dp"-->
+
+<!--                    android:background="@android:color/darker_gray"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/iconImg6" />-->
+
+
+<!--                <TextView-->
+<!--                    android:id="@+id/dateTextView7"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="28dp"-->
+
+<!--                    android:text="2021-10-27"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg7"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg7" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iconImg7"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginStart="80dp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+
+<!--                    app:layout_constraintStart_toEndOf="@+id/dateTextView7"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/view6"-->
+<!--                    app:layout_constraintVertical_bias="0.031"-->
+<!--                    app:srcCompat="@drawable/ic_clear_day" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/lowTempTextView7"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="20dp"-->
+
+<!--                    android:text="46"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg7"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/iconImg7"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg7" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/highTempTextView7"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="30dp"-->
+
+<!--                    android:text="60"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="20sp"-->
+
+<!--                    app:layout_constraintBottom_toBottomOf="@+id/iconImg7"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/lowTempTextView7"-->
+<!--                    app:layout_constraintTop_toTopOf="@+id/iconImg7" />-->
+
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+<!--        </androidx.core.widget.NestedScrollView>-->
+<!--    </androidx.cardview.widget.CardView>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

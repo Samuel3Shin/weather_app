@@ -1,59 +1,29 @@
 package com.example.weather
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_search_result.*
-import kotlinx.android.synthetic.main.activity_search_result.addressTextView
-import kotlinx.android.synthetic.main.activity_search_result.card1
-import kotlinx.android.synthetic.main.activity_search_result.dateTextView1
-import kotlinx.android.synthetic.main.activity_search_result.dateTextView2
-import kotlinx.android.synthetic.main.activity_search_result.dateTextView3
-import kotlinx.android.synthetic.main.activity_search_result.dateTextView4
-import kotlinx.android.synthetic.main.activity_search_result.dateTextView5
-import kotlinx.android.synthetic.main.activity_search_result.dateTextView6
-import kotlinx.android.synthetic.main.activity_search_result.dateTextView7
-import kotlinx.android.synthetic.main.activity_search_result.highTempTextView1
-import kotlinx.android.synthetic.main.activity_search_result.highTempTextView2
-import kotlinx.android.synthetic.main.activity_search_result.highTempTextView3
-import kotlinx.android.synthetic.main.activity_search_result.highTempTextView4
-import kotlinx.android.synthetic.main.activity_search_result.highTempTextView5
-import kotlinx.android.synthetic.main.activity_search_result.highTempTextView6
-import kotlinx.android.synthetic.main.activity_search_result.highTempTextView7
-import kotlinx.android.synthetic.main.activity_search_result.humidityTextView
-import kotlinx.android.synthetic.main.activity_search_result.iconImg1
-import kotlinx.android.synthetic.main.activity_search_result.iconImg2
-import kotlinx.android.synthetic.main.activity_search_result.iconImg3
-import kotlinx.android.synthetic.main.activity_search_result.iconImg4
-import kotlinx.android.synthetic.main.activity_search_result.iconImg5
-import kotlinx.android.synthetic.main.activity_search_result.iconImg6
-import kotlinx.android.synthetic.main.activity_search_result.iconImg7
-import kotlinx.android.synthetic.main.activity_search_result.lowTempTextView1
-import kotlinx.android.synthetic.main.activity_search_result.lowTempTextView2
-import kotlinx.android.synthetic.main.activity_search_result.lowTempTextView3
-import kotlinx.android.synthetic.main.activity_search_result.lowTempTextView4
-import kotlinx.android.synthetic.main.activity_search_result.lowTempTextView5
-import kotlinx.android.synthetic.main.activity_search_result.lowTempTextView6
-import kotlinx.android.synthetic.main.activity_search_result.lowTempTextView7
-import kotlinx.android.synthetic.main.activity_search_result.mainWeatherIcon
-import kotlinx.android.synthetic.main.activity_search_result.mainWeatherTextView
-import kotlinx.android.synthetic.main.activity_search_result.pressureTextView
-import kotlinx.android.synthetic.main.activity_search_result.temperatureTextView
-import kotlinx.android.synthetic.main.activity_search_result.visibilityTextView
-import kotlinx.android.synthetic.main.activity_search_result.windTextView
 import org.json.JSONObject
 import org.json.JSONTokener
 import kotlin.math.roundToInt
 
 
 class SearchResultActivity : AppCompatActivity() {
+    val preference: SharedPreferences by lazy {getSharedPreferences("mainActivity", Context.MODE_PRIVATE)}
+
     private lateinit var json_data: String
     private lateinit var city: String
     private lateinit var state: String
+    private lateinit var lat: String
+    private lateinit var lng: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,6 +47,11 @@ class SearchResultActivity : AppCompatActivity() {
 
             city = extras.getString("city").toString()
             state = extras.getString("state").toString()
+            lat = extras.getString("lat").toString()
+            lng = extras.getString("lng").toString()
+
+            Log.d("TAG", "city: " + city + " state: " + state + " lat: " + lat + " lng: " + lng)
+
             //The key argument here must match that used in the other activity
         }
 
@@ -163,11 +138,82 @@ class SearchResultActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        favoriteButton.setOnClickListener{
+        var favoriteInfoStr = preference.getString("favoriteInfo", "")
+        var favoriteInfoStrArr = favoriteInfoStr!!.split("@")
 
+        // check whether it already has the city and state
+        var isExist = false
+        for(i in 1..favoriteInfoStrArr.size-1) {
+            if(favoriteInfoStrArr[i].split(",").get(0) == city && favoriteInfoStrArr[i].split(",").get(1) == state) {
+                isExist = true
+                break
+            }
+        }
+
+        if(isExist) {
+            favoriteButton.setImageResource(R.drawable.map_marker_minus)
+        } else {
+            favoriteButton.setImageResource(R.drawable.map_marker_plus)
+        }
+
+
+        favoriteButton.setOnClickListener{
             Log.d("TAG", "fab clicked!")
 
-            favoriteButton.setImageResource(R.drawable.map_marker_minus);
+            var favoriteInfoStr = preference.getString("favoriteInfo", "")
+            var favoriteInfoStrArr = favoriteInfoStr!!.split("@")
+
+            var isExist = false
+            for(i in 1..favoriteInfoStrArr.size-1) {
+                if(favoriteInfoStrArr[i].split(",").get(0) == city && favoriteInfoStrArr[i].split(",").get(1) == state) {
+                    isExist = true
+                    break
+                }
+            }
+
+            if(isExist) {
+                // remove favorite city
+                var newFavoriteInfo = ""
+
+                var deletedIdx = 1
+                for(i in 1..favoriteInfoStrArr.size-1) {
+                    if(!(favoriteInfoStrArr[i].split(",").get(0) == city && favoriteInfoStrArr[i].split(",").get(1) == state)) {
+                        newFavoriteInfo = newFavoriteInfo + "@" + favoriteInfoStrArr[i]
+                    } else {
+                        deletedIdx = i
+                    }
+                }
+                preference.edit().putString("favoriteInfo", newFavoriteInfo).apply()
+                favoriteButton.setImageResource(R.drawable.map_marker_plus)
+                Toast.makeText(applicationContext, "$city, $state was removed from favorites", Toast.LENGTH_SHORT).show()
+
+
+                favoriteInfoStr = preference.getString("favoriteInfo", "")
+                Log.d("TAG", favoriteInfoStr.toString())
+                // remove page
+//                val activity: MainActivity? = activity as MainActivity?
+//                activity!!.removePage(deletedIdx)
+
+//                val mActivity = MainActivity()
+//                mActivity.getInstance()!!.removePage(deletedIdx)
+//
+//                removePage()
+//                var activity = this@MainAtivity
+//                (activity as MainActivity).removePage(deletedIdx)
+
+            } else {
+                // add favorite city
+                var curFavoriteInfo = preference.getString("favoriteInfo", "")
+                preference.edit().putString("favoriteInfo", "$curFavoriteInfo@$city,$state,$lat,$lng").apply()
+                favoriteButton.setImageResource(R.drawable.map_marker_minus)
+                Toast.makeText(applicationContext, "$city, $state was added to favorites", Toast.LENGTH_SHORT).show()
+
+//                val mActivity = MainActivity()
+//                mActivity.getInstance()!!.addPage()
+
+                favoriteInfoStr = preference.getString("favoriteInfo", "")
+                Log.d("TAG", favoriteInfoStr.toString())
+            }
         }
     }
 
@@ -177,7 +223,11 @@ class SearchResultActivity : AppCompatActivity() {
         when (item.getItemId()) {
             android.R.id.home -> {
                 Log.d("TAG", "back button clicked!")
-                onBackPressed()
+                val returnIntent = Intent()
+//                returnIntent.putExtra("result", result)
+                setResult(RESULT_OK, returnIntent)
+                finish()
+//                onBackPressed()
             }
         }
         return true
