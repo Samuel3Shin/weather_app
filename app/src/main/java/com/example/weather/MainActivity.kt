@@ -46,11 +46,6 @@ class MainActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        var favoriteInfoStr = preference.getString("favoriteInfo", "")
-//        NUM_PAGES = kotlin.math.max(1, favoriteInfoStr!!.split("@").size)
-//        Log.d("TAG", "page number: " + favoriteInfoStr.toString())
-//        Log.d("TAG", "page number: " + NUM_PAGES.toString())
-
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = findViewById(R.id.pager)
 
@@ -203,10 +198,6 @@ class MainActivity : AppCompatActivity()  {
         override fun getItemPosition(@NonNull Object: Any): Int {
             return POSITION_NONE
         }
-
-//        fun getItemPosition(Object: Any?): Int {
-//            return POSITION_NONE
-//        }
 
     }
 }

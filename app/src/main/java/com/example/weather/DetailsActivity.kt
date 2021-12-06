@@ -96,25 +96,13 @@ class DetailsActivity : AppCompatActivity() {
 
         when (item.getItemId()) {
             android.R.id.home -> {
-//                Toast.makeText(
-//                    applicationContext,
-//                    "Back button clicked",
-//                    Toast.LENGTH_SHORT
-//                ).show()
+
                 Log.d("TAG", "back button clicked!")
                 onBackPressed()
             }
             R.id.twitter_button -> {
-//                Toast.makeText(
-//                    applicationContext,
-//                    "Back button clicked",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-                Log.d("TAG", "twitter button clicked!")
-//                onBackPressed()
 
-//                var strWindowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
-//                var url = "https://twitter.com/intent/tweet?text=The temperature in ${this.city}, ${this.state} on ${this.date} is ${this.weatherDetails[3]["value"]}. The weather conditions are ${this.weatherDetails[0]["value"]} %23CSCI571WeatherForecast"
+                Log.d("TAG", "twitter button clicked!")
 
                 val jsonObject = JSONTokener(json_data).nextValue() as JSONObject
                 val current_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values")
@@ -136,8 +124,6 @@ class DetailsActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.twitter_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
-
-
 
     fun getJsonData(): String? {
         return json_data

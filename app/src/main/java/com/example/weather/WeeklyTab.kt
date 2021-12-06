@@ -33,7 +33,6 @@ class WeeklyTab : Fragment() {
         val activity: DetailsActivity? = activity as DetailsActivity?
         val json_data: String = activity!!.getJsonData()!!
 
-//        val chartView = findViewById<HIChartView>(R.id.hc)
         val chartView = requireView().findViewById<View>(R.id.hc) as HIChartView
 
         val options = HIOptions()
@@ -78,8 +77,7 @@ class WeeklyTab : Fragment() {
         val jsonObject = JSONTokener(json_data).nextValue() as JSONObject
 
         var dateStr = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(2).getJSONArray("intervals").getJSONObject(0).getString("startTime")
-//        val date = Date(dateStr.substring(0, dateStr.length-6))
-//        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(2).getJSONArray("intervals").getJSONObject(0).getString("startTime"))
+
         Log.d("TAG", dateStr.substring(0, dateStr.length-15))
         val weeklyData = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(2).getJSONArray("intervals")
 
@@ -87,11 +85,6 @@ class WeeklyTab : Fragment() {
 
         val unix = l.atStartOfDay(ZoneId.systemDefault()).toInstant().epochSecond
         Log.d("TAG", unix.toString())
-
-//        for(var i=0; i<this.json_data["data"]["timelines"][2]["intervals"].length; ++i) {
-//            let date = new Date(this.json_data["data"]["timelines"][2]["intervals"][i]["startTime"]);
-//            weather_chart_data.push([Math.round(date.getTime()), this.json_data["data"]["timelines"][2]["intervals"][i]["values"]["temperatureMin"], this.json_data["data"]["timelines"][2]["intervals"][i]["values"]["temperatureMax"]]);
-//        }
 
         var seriesData = arrayOf<Array<Any?>>()
 
@@ -106,10 +99,6 @@ class WeeklyTab : Fragment() {
             var lowTemp = weeklyData.getJSONObject(i).getJSONObject("values").getString("temperatureMin")
             var highTemp = weeklyData.getJSONObject(i).getJSONObject("values").getString("temperatureMax")
 
-//            Log.d("TAG", "$lowTemp $highTemp")
-//            Log.d("TAG","${lowTemp::class.simpleName}")
-//            seriesData += seriesData_tmp.get(i)
-//            seriesData += arrayOf<Any?>(1388538000000L, 1.1, 4.7)
             seriesData += arrayOf<Any?>(unix, lowTemp.toDouble(), highTemp.toDouble())
         }
 

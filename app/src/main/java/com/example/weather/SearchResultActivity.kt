@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_search_result.*
 import org.json.JSONObject
 import org.json.JSONTokener
@@ -35,15 +34,12 @@ class SearchResultActivity : AppCompatActivity() {
             setSupportActionBar(toolbar);
             getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
             getSupportActionBar()?.setHomeButtonEnabled(true);
-
         }
 
         // get json data
         val extras = intent.extras
         if (extras != null) {
             json_data = extras.getString("json_data").toString()
-//            Log.d("TAG", "detailActivity josn get?")
-//            Log.d("TAG", json_data)
 
             city = extras.getString("city").toString()
             state = extras.getString("state").toString()
@@ -52,7 +48,6 @@ class SearchResultActivity : AppCompatActivity() {
 
             Log.d("TAG", "city: " + city + " state: " + state + " lat: " + lat + " lng: " + lng)
 
-            //The key argument here must match that used in the other activity
         }
 
         Log.d("TAG", city + ", " + state)
@@ -69,7 +64,6 @@ class SearchResultActivity : AppCompatActivity() {
 
         var current_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values")
 
-//                        Log.d("TAG", Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.first.toString())
         mainWeatherIcon.setImageResource(Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.first)
         mainWeatherTextView.text = Utils.weatherCodeMap.get(current_data.getString("weatherCode").toString())!!.second
 
@@ -156,7 +150,6 @@ class SearchResultActivity : AppCompatActivity() {
             favoriteButton.setImageResource(R.drawable.map_marker_plus)
         }
 
-
         favoriteButton.setOnClickListener{
             Log.d("TAG", "fab clicked!")
 
@@ -187,19 +180,8 @@ class SearchResultActivity : AppCompatActivity() {
                 favoriteButton.setImageResource(R.drawable.map_marker_plus)
                 Toast.makeText(applicationContext, "$city, $state was removed from favorites", Toast.LENGTH_SHORT).show()
 
-
                 favoriteInfoStr = preference.getString("favoriteInfo", "")
                 Log.d("TAG", favoriteInfoStr.toString())
-                // remove page
-//                val activity: MainActivity? = activity as MainActivity?
-//                activity!!.removePage(deletedIdx)
-
-//                val mActivity = MainActivity()
-//                mActivity.getInstance()!!.removePage(deletedIdx)
-//
-//                removePage()
-//                var activity = this@MainAtivity
-//                (activity as MainActivity).removePage(deletedIdx)
 
             } else {
                 // add favorite city
@@ -208,15 +190,11 @@ class SearchResultActivity : AppCompatActivity() {
                 favoriteButton.setImageResource(R.drawable.map_marker_minus)
                 Toast.makeText(applicationContext, "$city, $state was added to favorites", Toast.LENGTH_SHORT).show()
 
-//                val mActivity = MainActivity()
-//                mActivity.getInstance()!!.addPage()
-
                 favoriteInfoStr = preference.getString("favoriteInfo", "")
                 Log.d("TAG", favoriteInfoStr.toString())
             }
         }
     }
-
 
     // back button clicked
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -224,7 +202,6 @@ class SearchResultActivity : AppCompatActivity() {
             android.R.id.home -> {
                 Log.d("TAG", "back button clicked!")
                 val returnIntent = Intent()
-//                returnIntent.putExtra("result", result)
                 setResult(RESULT_OK, returnIntent)
                 finish()
 //                onBackPressed()
