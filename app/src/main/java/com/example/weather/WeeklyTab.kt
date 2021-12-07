@@ -45,7 +45,6 @@ class WeeklyTab : Fragment() {
         options.chart = chart
 
 
-
 //        chart.setBackgroundColor(HIColor.initWithLinearGradient(gradient, stops));
 
         val title = HITitle()
@@ -54,6 +53,9 @@ class WeeklyTab : Fragment() {
 
         val xaxis = HIXAxis()
         xaxis.type = "datetime"
+        xaxis.setDateTimeLabelFormats(HIDateTimeLabelFormats())
+        xaxis.getDateTimeLabelFormats().setDay(HIDay())
+        xaxis.getDateTimeLabelFormats().getDay().setMain("%e")
         options.xAxis = object : java.util.ArrayList<HIXAxis?>() {
             init {
                 add(xaxis)
@@ -62,6 +64,9 @@ class WeeklyTab : Fragment() {
 
         val yaxis = HIYAxis()
         yaxis.title = HITitle()
+        yaxis.setDateTimeLabelFormats(HIDateTimeLabelFormats())
+        yaxis.getDateTimeLabelFormats().setDay(HIDay())
+//        yaxis.getDateTimeLabelFormats().getDay().setMain("%y-%b-%e")
         options.yAxis = object : java.util.ArrayList<HIYAxis?>() {
             init {
                 add(yaxis)
@@ -71,6 +76,8 @@ class WeeklyTab : Fragment() {
         val tooltip = HITooltip()
         tooltip.shadow = true
         tooltip.valueSuffix = "°C"
+        tooltip.xDateFormat = "%Y-%m-%d"
+        tooltip.borderColor = HIColor.initWithRGB(226, 189, 150)
         options.tooltip = tooltip
 
         val legend = HILegend()
@@ -88,6 +95,16 @@ class WeeklyTab : Fragment() {
 //        stops.add(HIStop(0.8f, HIColor.initWithRGB(144, 165, 185)))
         stops.add(HIStop(0.8f, HIColor.initWithRGB(123, 164, 212)))
         series.fillColor = HIColor.initWithLinearGradient(gradient, stops)
+        series.fillOpacity = 0.75
+        series.lineColor = HIColor.initWithRGB(231, 198, 155)
+        series.lineWidth = 0
+        series.color = HIColor.initWithRGB(226, 189, 150)
+
+        // marker color
+        val marker = HIMarker()
+        marker.lineWidth = 0
+        series.marker = marker
+        marker.fillColor = HIColor.initWithRGB(186, 185, 181)
 
         val jsonObject = JSONTokener(json_data).nextValue() as JSONObject
 
