@@ -32,11 +32,6 @@ class MainActivity : AppCompatActivity()  {
 
     val AUTOCOMPLETE_REQUEST_CODE = 1
     val ADD_TAB_REQUEST_CODE = 2
-    var lat = ""
-    var lng = ""
-    var json_data = ""
-    var city = ""
-    var state = ""
 
     private var NUM_PAGES = 1
     private lateinit var mPager: ViewPager
@@ -117,10 +112,7 @@ class MainActivity : AppCompatActivity()  {
                         val place = Autocomplete.getPlaceFromIntent(data)
                         Log.i("TAG", place.toString())
                         Log.i("TAG", "Place: " + place.getName() + ", " + place.getId() + ", " + place.getAddress() + ", " + place.latLng);
-
                         Log.d("TAG", "search result click!")
-
-                        val queue = Volley.newRequestQueue(this)
 
                         var lat = place.latLng.toString().split(": ")[1].split(",")[0].substring(1)
                         var lng = place.latLng.toString().split(": ")[1].split(",")[1].split(")")[0]
@@ -128,33 +120,18 @@ class MainActivity : AppCompatActivity()  {
                         var city = place.getAddress().toString().split(", ")[0]
                         var state = place.getAddress().toString().split(", ")[1]
 
-                        var weatherUrl = "http://10.26.50.246:8080/weather?lat=${lat}&lng=${lng}"
 
-                        val weatherRequest = JsonObjectRequest(
-                            Request.Method.GET, weatherUrl, null,
-                            { response ->
-                                val jsonObject = JSONTokener(response.toString()).nextValue() as JSONObject
-                                json_data = response.toString()
-
-                                val intent = Intent(this, SearchResultActivity::class.java)
-                                intent.putExtra("json_data", json_data)
-                                intent.putExtra("city", city)
-                                intent.putExtra("state", state)
-                                intent.putExtra("lat", lat)
-                                intent.putExtra("lng", lng)
+                        val intent = Intent(this, SearchResultActivity::class.java)
+                        //                                intent.putExtra("json_data", json_data)
+                        intent.putExtra("city", city)
+                        intent.putExtra("state", state)
+                        intent.putExtra("lat", lat)
+                        intent.putExtra("lng", lng)
 
 //                                startActivity(intent)
-                                startActivityForResult(intent, ADD_TAB_REQUEST_CODE)
+                        startActivityForResult(intent, ADD_TAB_REQUEST_CODE)
 //                                finish()
 
-                            },
-                            { error ->
-                                // TODO: Handle error
-                                Log.d("TAG", error.toString())
-                            }
-                        )
-
-                        queue.add(weatherRequest)
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {

@@ -14,7 +14,6 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.google.android.libraries.places.api.Places
-import kotlinx.android.synthetic.main.activity_search_result.*
 import kotlinx.android.synthetic.main.fragment_screen_slide_page.*
 import kotlinx.android.synthetic.main.fragment_screen_slide_page.card1
 import kotlinx.android.synthetic.main.fragment_screen_slide_page.dateTextView1
@@ -176,6 +175,9 @@ class ScreenSlidePageFragment : Fragment() {
 
 
 //                        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").toString())
+                            progressbar_layout.visibility = View.INVISIBLE
+                            result_layout.visibility = View.VISIBLE
+
                         },
                         { error ->
                             // TODO: Handle error
@@ -270,6 +272,11 @@ class ScreenSlidePageFragment : Fragment() {
 
 
 //                        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").toString())
+
+
+                    progressbar_layout.visibility = View.INVISIBLE
+                    result_layout.visibility = View.VISIBLE
+
                 },
                 { error ->
                     // TODO: Handle error
