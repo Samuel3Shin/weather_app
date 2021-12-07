@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.highsoft.highcharts.common.HIColor
+import com.highsoft.highcharts.common.HIGradient
+import com.highsoft.highcharts.common.HIStop
 import com.highsoft.highcharts.common.hichartsclasses.*
 import com.highsoft.highcharts.core.HIChartView
 import org.json.JSONObject
@@ -14,7 +17,6 @@ import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.reflect.typeOf
 
 
 class WeeklyTab : Fragment() {
@@ -41,6 +43,10 @@ class WeeklyTab : Fragment() {
         chart.type = "arearange"
         chart.zoomType = "x"
         options.chart = chart
+
+
+
+//        chart.setBackgroundColor(HIColor.initWithLinearGradient(gradient, stops));
 
         val title = HITitle()
         title.text = "Temperature variation by day"
@@ -73,6 +79,15 @@ class WeeklyTab : Fragment() {
 
         val series = HIArearange()
         series.name = "Temperatures"
+
+
+        // gradient
+        val gradient = HIGradient(0f, 0.5f, 1f, 1f)
+        val stops: LinkedList<HIStop> = LinkedList()
+        stops.add(HIStop(0.1f, HIColor.initWithRGB(226, 189, 150)))
+//        stops.add(HIStop(0.8f, HIColor.initWithRGB(144, 165, 185)))
+        stops.add(HIStop(0.8f, HIColor.initWithRGB(123, 164, 212)))
+        series.fillColor = HIColor.initWithLinearGradient(gradient, stops)
 
         val jsonObject = JSONTokener(json_data).nextValue() as JSONObject
 

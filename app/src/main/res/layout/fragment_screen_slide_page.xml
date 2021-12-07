@@ -58,7 +58,7 @@
             android:id="@+id/card1"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
 
@@ -346,7 +346,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/card3"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="190dp"
             android:layout_marginTop="20dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
