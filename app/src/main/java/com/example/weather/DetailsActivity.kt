@@ -108,7 +108,7 @@ class DetailsActivity : AppCompatActivity() {
                 val current_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values")
                 val warmth = current_data.getString("temperature").toString() + "°F"
 
-                var url = "https://twitter.com/intent/tweet?text=Check out " + city + ", " + state + ", USA's weather! It is " + warmth + "!        " + "\n%23CSCI571WeatherSearch"
+                var url = "https://twitter.com/intent/tweet?text=Check out " + city + ", " + state + "'s weather! It is " + warmth + "!        " + "\n%23CSCI571WeatherSearch"
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
                 startActivity(browserIntent)
             }

@@ -29,15 +29,15 @@ class TodayTab : Fragment() {
         val jsonObject = JSONTokener(json_data).nextValue() as JSONObject
         val current_data = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values")
 
-        wind_speed_textview.text =  current_data.getString("windSpeed").toString() + " mph"
-        pressure_textview.text =  current_data.getString("pressureSeaLevel").toString() + " inHg"
-        precipitation_textview.text =  current_data.getString("precipitationProbability").toString() + " %"
-        temperature_textview.text =  current_data.getString("temperature").toDouble().roundToInt().toString() + " °F"
+        wind_speed_textview.text =  String.format("%.02f", current_data.getString("windSpeed").toDouble()) + " mph"
+        pressure_textview.text =  String.format("%.02f", current_data.getString("pressureSeaLevel").toDouble()) + " inHg"
+        precipitation_textview.text =  String.format("%.02f", current_data.getString("precipitationProbability").toDouble()) + " %"
+        temperature_textview.text =  current_data.getString("temperature").toDouble().roundToInt().toString() + "°F"
 
         humidity_textview.text =  current_data.getString("humidity").toString() + "%"
-        visibility_textview.text =  current_data.getString("visibility").toString() + " mi"
+        visibility_textview.text =  String.format("%.02f", current_data.getString("visibility").toDouble()) + " mi"
         cloud_cover_textview.text =  current_data.getString("cloudCover").toString() + "%"
-        ozone_textview.text =  current_data.getString("windSpeed").toString()
+        ozone_textview.text =  String.format("%.02f", current_data.getString("windSpeed").toDouble())
 
         today_icon.setImageResource(Utils.weatherCodeMap[current_data.getString("weatherCode").toString()]!!.first)
         today_weather_textview.text = Utils.weatherCodeMap[current_data.getString("weatherCode").toString()]!!.second

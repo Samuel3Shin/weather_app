@@ -95,7 +95,7 @@ class SearchResultActivity : AppCompatActivity() {
 
         val queue = Volley.newRequestQueue(this)
 
-        var weatherUrl = "http://10.26.50.246:8080/weather?lat=${lat}&lng=${lng}"
+        var weatherUrl = "http://10.26.25.186:8080/weather?lat=${lat}&lng=${lng}"
 
         val weatherRequest = JsonObjectRequest(
             Request.Method.GET, weatherUrl, null,
@@ -175,7 +175,6 @@ class SearchResultActivity : AppCompatActivity() {
 
                 // Card 1 click -> detail
                 card1.setOnClickListener {
-
                     Log.d("TAG", "card1 click!")
                     val intent = Intent(this, DetailsActivity::class.java)
                     intent.putExtra("json_data", json_data)
@@ -183,6 +182,10 @@ class SearchResultActivity : AppCompatActivity() {
                     intent.putExtra("state", state)
 
                     startActivity(intent)
+
+                    val returnIntent = Intent()
+                    setResult(RESULT_OK, returnIntent)
+                    finish()
                 }
 
                 var favoriteInfoStr = preference.getString("favoriteInfo", "")

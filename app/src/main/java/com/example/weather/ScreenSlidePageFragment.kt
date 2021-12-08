@@ -107,7 +107,7 @@ class ScreenSlidePageFragment : Fragment() {
                     state = response.getString("region")
 
 
-                    var weatherUrl = "http://10.26.50.246:8080/weather?lat=${lat}&lng=${lng}"
+                    var weatherUrl = "http://10.26.25.186:8080/weather?lat=${lat}&lng=${lng}"
 
                     //        var weatherUrl = "http://127.0.0.1:8080/weather"
                     val weatherRequest = JsonObjectRequest(
@@ -204,7 +204,7 @@ class ScreenSlidePageFragment : Fragment() {
 
             val queue = Volley.newRequestQueue(activity)
 
-            var weatherUrl = "http://10.26.50.246:8080/weather?lat=${lat}&lng=${lng}"
+            var weatherUrl = "http://10.26.25.186:8080/weather?lat=${lat}&lng=${lng}"
 
             //        var weatherUrl = "http://127.0.0.1:8080/weather"
             val weatherRequest = JsonObjectRequest(

@@ -75,7 +75,7 @@ class WeeklyTab : Fragment() {
 
         val tooltip = HITooltip()
         tooltip.shadow = true
-        tooltip.valueSuffix = "°C"
+        tooltip.valueSuffix = "°F"
         tooltip.xDateFormat = "%Y-%m-%d"
         tooltip.borderColor = HIColor.initWithRGB(226, 189, 150)
         options.tooltip = tooltip
@@ -98,7 +98,7 @@ class WeeklyTab : Fragment() {
         series.fillOpacity = 0.75
         series.lineColor = HIColor.initWithRGB(231, 198, 155)
         series.lineWidth = 0
-        series.color = HIColor.initWithRGB(226, 189, 150)
+        series.color = HIColor.initWithRGB(152, 152, 137)
 
         // marker color
         val marker = HIMarker()
