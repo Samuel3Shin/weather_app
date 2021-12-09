@@ -202,6 +202,8 @@ class ScreenSlidePageFragment : Fragment() {
             city = favoriteInfoStrArr[page].split(",")[0]
             state = favoriteInfoStrArr[page].split(",")[1]
 
+            addressTextView.text = city + ", " + state
+
             val queue = Volley.newRequestQueue(activity)
 
             var weatherUrl = "http://10.26.25.186:8080/weather?lat=${lat}&lng=${lng}"
