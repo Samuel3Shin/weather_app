@@ -66,7 +66,7 @@ class WeeklyTab : Fragment() {
         yaxis.title = HITitle()
         yaxis.setDateTimeLabelFormats(HIDateTimeLabelFormats())
         yaxis.getDateTimeLabelFormats().setDay(HIDay())
-//        yaxis.getDateTimeLabelFormats().getDay().setMain("%y-%b-%e")
+        yaxis.getDateTimeLabelFormats().getDay().setMain("%y-%b-%e")
         options.yAxis = object : java.util.ArrayList<HIYAxis?>() {
             init {
                 add(yaxis)
@@ -110,10 +110,10 @@ class WeeklyTab : Fragment() {
 
         var dateStr = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(2).getJSONArray("intervals").getJSONObject(0).getString("startTime")
 
-        Log.d("TAG", dateStr.substring(0, dateStr.length-15))
+        Log.d("TAG", dateStr.split("T")[0])
         val weeklyData = jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(2).getJSONArray("intervals")
 
-        val l = LocalDate.parse(dateStr.substring(0, dateStr.length-15), DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        val l = LocalDate.parse(dateStr.split("T")[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
         val unix = l.atStartOfDay(ZoneId.systemDefault()).toInstant().epochSecond
         Log.d("TAG", unix.toString())
@@ -122,9 +122,15 @@ class WeeklyTab : Fragment() {
 
         Log.d("TAG", weeklyData.length().toString())
 
+        var cnt = 0
         for( i in 0..weeklyData.length()-1) {
+            cnt++
+            if(cnt == 15){
+                break
+            }
+
             var dateStr = weeklyData.getJSONObject(i).getString("startTime")
-            val l = LocalDate.parse(dateStr.substring(0, dateStr.length-15), DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            val l = LocalDate.parse(dateStr.split("T")[0], DateTimeFormatter.ofPattern("yyyy-MM-dd"))
             var unix = l.atStartOfDay(ZoneId.systemDefault()).toInstant().epochSecond
             unix *= 1000L
 

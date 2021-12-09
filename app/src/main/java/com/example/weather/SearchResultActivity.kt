@@ -183,9 +183,6 @@ class SearchResultActivity : AppCompatActivity() {
 
                     startActivity(intent)
 
-                    val returnIntent = Intent()
-                    setResult(RESULT_OK, returnIntent)
-                    finish()
                 }
 
                 var favoriteInfoStr = preference.getString("favoriteInfo", "")

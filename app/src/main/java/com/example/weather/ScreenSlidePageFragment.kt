@@ -102,7 +102,7 @@ class ScreenSlidePageFragment : Fragment() {
                     lat = response.getString("loc").split(",")[0]
                     lng = response.getString("loc").split(",")[1]
 
-//                addressTextView.text = response.getString("city") + ", " + response.getString("region")
+                    addressTextView.text = response.getString("city") + ", " + response.getString("region")
                     city = response.getString("city")
                     state = response.getString("region")
 
