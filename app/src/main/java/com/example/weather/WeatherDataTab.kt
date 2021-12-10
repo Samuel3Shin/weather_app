@@ -55,7 +55,8 @@ class WeatherDataTab : Fragment() {
         tooltip.backgroundColor = HIColor.initWithName("none")
         tooltip.shadow = false
         tooltip.style = HICSSObject()
-        tooltip.style.fontSize = "16px"
+        tooltip.style.fontSize = "12px"
+        tooltip.style.position = "center"
         tooltip.pointFormat =
             "{series.name}<br><span style=\"font-size:2em; color: {point.color}; font-weight: bold\">{point.y}%</span>"
         tooltip.positioner = HIFunction(

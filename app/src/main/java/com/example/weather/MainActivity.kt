@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -21,6 +22,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
 import org.json.JSONTokener
 import java.util.*
@@ -56,6 +58,11 @@ class MainActivity : AppCompatActivity()  {
 
     fun addPage() {
         pagerAdapter.notifyDataSetChanged()
+    }
+
+    fun setVisibleTabIndicator() {
+        Log.d("TAG", "setVisible called")
+        tabIndicator.visibility = View.VISIBLE
     }
 
     // Called before the activity is destroyed

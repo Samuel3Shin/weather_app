@@ -107,7 +107,7 @@ class ScreenSlidePageFragment : Fragment() {
                     state = response.getString("region")
 
 
-                    var weatherUrl = "http://10.26.25.186:8080/weather?lat=${lat}&lng=${lng}"
+                    var weatherUrl = "http://10.26.230.250:8080/weather?lat=${lat}&lng=${lng}"
 
                     //        var weatherUrl = "http://127.0.0.1:8080/weather"
                     val weatherRequest = JsonObjectRequest(
@@ -173,10 +173,12 @@ class ScreenSlidePageFragment : Fragment() {
                             lowTempTextView7.text = weekly_data.getJSONObject(6).getJSONObject("values").getString("temperatureMin").toDouble().roundToInt().toString()
                             highTempTextView7.text = weekly_data.getJSONObject(6).getJSONObject("values").getString("temperatureMax").toDouble().roundToInt().toString()
 
-
 //                        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").toString())
                             progressbar_layout.visibility = View.INVISIBLE
                             result_layout.visibility = View.VISIBLE
+
+                            val activity: MainActivity? = activity as MainActivity?
+                            activity!!.setVisibleTabIndicator()
 
                         },
                         { error ->
@@ -206,7 +208,7 @@ class ScreenSlidePageFragment : Fragment() {
 
             val queue = Volley.newRequestQueue(activity)
 
-            var weatherUrl = "http://10.26.25.186:8080/weather?lat=${lat}&lng=${lng}"
+            var weatherUrl = "http://10.26.230.250:8080/weather?lat=${lat}&lng=${lng}"
 
             //        var weatherUrl = "http://127.0.0.1:8080/weather"
             val weatherRequest = JsonObjectRequest(
@@ -278,6 +280,9 @@ class ScreenSlidePageFragment : Fragment() {
 
                     progressbar_layout.visibility = View.INVISIBLE
                     result_layout.visibility = View.VISIBLE
+
+                    val activity: MainActivity? = activity as MainActivity?
+                    activity!!.setVisibleTabIndicator()
 
                 },
                 { error ->
