@@ -94,7 +94,7 @@ class SearchResultActivity : AppCompatActivity() {
 
         val queue = Volley.newRequestQueue(this)
 
-        var weatherUrl = "http://10.26.230.250:8080/weather?lat=${lat}&lng=${lng}"
+        var weatherUrl = "https://web-hw8-328723.wl.r.appspot.com/weather?lat=${lat}&lng=${lng}"
 
         val weatherRequest = JsonObjectRequest(
             Request.Method.GET, weatherUrl, null,

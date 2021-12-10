@@ -49,14 +49,17 @@ class MainActivity : AppCompatActivity()  {
         // The pager adapter, which provides the pages to the view pager widget.
         pagerAdapter = ScreenSlidePagerAdapter(supportFragmentManager)
         mPager.adapter = pagerAdapter
+        mPager.offscreenPageLimit = 10
     }
 
     fun removePage(position: Int) {
         mPager.removeViewAt(position)
+        tabIndicator.visibility = View.INVISIBLE
         pagerAdapter.notifyDataSetChanged()
     }
 
     fun addPage() {
+        tabIndicator.visibility = View.INVISIBLE
         pagerAdapter.notifyDataSetChanged()
     }
 

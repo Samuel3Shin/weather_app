@@ -107,7 +107,7 @@ class ScreenSlidePageFragment : Fragment() {
                     state = response.getString("region")
 
 
-                    var weatherUrl = "http://10.26.230.250:8080/weather?lat=${lat}&lng=${lng}"
+                    var weatherUrl = "https://web-hw8-328723.wl.r.appspot.com/weather?lat=${lat}&lng=${lng}"
 
                     //        var weatherUrl = "http://127.0.0.1:8080/weather"
                     val weatherRequest = JsonObjectRequest(
@@ -176,10 +176,13 @@ class ScreenSlidePageFragment : Fragment() {
 //                        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").toString())
                             progressbar_layout.visibility = View.INVISIBLE
                             result_layout.visibility = View.VISIBLE
+//                            val activity: MainActivity? = activity as MainActivity?
+//                            activity!!.setVisibleTabIndicator()
 
-                            val activity: MainActivity? = activity as MainActivity?
-                            activity!!.setVisibleTabIndicator()
-
+                            if(favoriteInfoStrArr.size == 0 || favoriteInfoStrArr.size-1 == page) {
+                                val activity: MainActivity? = activity as MainActivity?
+                                activity!!.setVisibleTabIndicator()
+                            }
                         },
                         { error ->
                             // TODO: Handle error
@@ -208,7 +211,7 @@ class ScreenSlidePageFragment : Fragment() {
 
             val queue = Volley.newRequestQueue(activity)
 
-            var weatherUrl = "http://10.26.230.250:8080/weather?lat=${lat}&lng=${lng}"
+            var weatherUrl = "https://web-hw8-328723.wl.r.appspot.com/weather?lat=${lat}&lng=${lng}"
 
             //        var weatherUrl = "http://127.0.0.1:8080/weather"
             val weatherRequest = JsonObjectRequest(
@@ -277,12 +280,16 @@ class ScreenSlidePageFragment : Fragment() {
 
 //                        Log.d("TAG", jsonObject.getJSONObject("data").getJSONArray("timelines").getJSONObject(0).getJSONArray("intervals").getJSONObject(0).getJSONObject("values").toString())
 
-
                     progressbar_layout.visibility = View.INVISIBLE
                     result_layout.visibility = View.VISIBLE
 
-                    val activity: MainActivity? = activity as MainActivity?
-                    activity!!.setVisibleTabIndicator()
+//                    val activity: MainActivity? = activity as MainActivity?
+//                    activity!!.setVisibleTabIndicator()
+
+                    if(favoriteInfoStrArr.size == 0 || favoriteInfoStrArr.size-1 == page) {
+                        val activity: MainActivity? = activity as MainActivity?
+                        activity!!.setVisibleTabIndicator()
+                    }
 
                 },
                 { error ->
@@ -292,6 +299,9 @@ class ScreenSlidePageFragment : Fragment() {
             )
             queue.add(weatherRequest)
         }
+
+//        Log.d("TAG", "SharedPref size: " + favoriteInfoStrArr.size)
+//        Log.d("TAG", "page Num: " + page)
 
         // Card 1 click -> detail
         card1.setOnClickListener {
