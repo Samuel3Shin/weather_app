@@ -92,7 +92,7 @@ class ScreenSlidePageFragment : Fragment() {
 
             // get IP info API
             val queue = Volley.newRequestQueue(activity)
-            val ipUrl = "https://ipinfo.io/json?token=ecddd4a7e21254"
+            val ipUrl = "https://ipinfo.io/json?token=" + BuildConfig.IPINFO_TOKEN
 
             val ipInfoRequest = JsonObjectRequest(
                 Request.Method.GET, ipUrl, null,
